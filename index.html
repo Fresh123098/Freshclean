@@ -2,28 +2,48 @@
 <html>
 <head>
   <title>Fresh & Clean Laundry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Fresh & Clean Laundry</h1>
+<header>
+  <h1>Fresh & Clean Laundry</h1>
+  <p>Fast • Clean • Reliable Service</p>
+</header>
 
-<div class="services">
-  <h2>Services & Prices</h2>
-  <table>
-    <tr><th>Service</th><th>Price (BD)</th></tr>
-    <tr><td>Wash</td><td contenteditable="true">1.000</td></tr>
-    <tr><td>Iron</td><td contenteditable="true">0.500</td></tr>
-    <tr><td>Dry Clean</td><td contenteditable="true">2.000</td></tr>
-  </table>
-</div>
+<section class="card">
+  <h2>Our Services</h2>
 
-<div class="bill">
-  <h2>Customer Bill</h2>
+  <div class="service">
+    <span>Wash</span>
+    <span contenteditable="true">1.000 BD</span>
+  </div>
+
+  <div class="service">
+    <span>Iron</span>
+    <span contenteditable="true">0.500 BD</span>
+  </div>
+
+  <div class="service">
+    <span>Dry Clean</span>
+    <span contenteditable="true">2.000 BD</span>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Create Bill</h2>
+
   <input type="text" id="customer" placeholder="Customer Name">
   <input type="number" id="amount" placeholder="Total Amount">
+
   <button onclick="printBill()">Print Bill</button>
-</div>
+</section>
+
+<footer>
+  <p>© 2026 Fresh & Clean Laundry</p>
+</footer>
 
 <script src="script.js"></script>
 </body>

@@ -1,13 +1,21 @@
 function printBill(){
-  var name = document.getElementById("customer").value;
-  var amount = document.getElementById("amount").value;
+  let name = document.getElementById("customer").value;
+  let amount = document.getElementById("amount").value;
 
-  var bill = "Fresh & Clean Laundry\n";
-  bill += "Customer: " + name + "\n";
-  bill += "Total: BD " + amount + "\n";
-  bill += "Thank you!";
+  if(name === "" || amount === ""){
+    alert("Please fill all fields");
+    return;
+  }
 
-  var win = window.open('', '', 'height=400,width=300');
-  win.document.write('<pre>' + bill + '</pre>');
+  let bill =
+`Fresh & Clean Laundry
+
+Customer: ${name}
+Total: ${amount} BD
+
+Thank you for choosing us!`;
+
+  let win = window.open('', '', 'width=400,height=500');
+  win.document.write('<pre style="font-size:16px;">' + bill + '</pre>');
   win.print();
 }
