@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fresh & Clean Laundry</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Fresh & Clean Laundry</h1>
+
+<div class="services">
+  <h2>Services & Prices</h2>
+  <table>
+    <tr><th>Service</th><th>Price (BD)</th></tr>
+    <tr><td>Wash</td><td contenteditable="true">1.000</td></tr>
+    <tr><td>Iron</td><td contenteditable="true">0.500</td></tr>
+    <tr><td>Dry Clean</td><td contenteditable="true">2.000</td></tr>
+  </table>
+</div>
+
+<div class="bill">
+  <h2>Customer Bill</h2>
+  <input type="text" id="customer" placeholder="Customer Name">
+  <input type="number" id="amount" placeholder="Total Amount">
+  <button onclick="printBill()">Print Bill</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
