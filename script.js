@@ -13,10 +13,10 @@ items.forEach(name => {
 
   row.innerHTML = `
     <td>${name}</td>
-    <td><input type="number" value="0" class="p"></td>
-    <td><input type="number" value="0" class="p"></td>
-    <td><input type="number" value="0" class="p"></td>
-    <td><input type="number" value="0" class="qty" oninput="calc()"></td>
+    <td><input class="p" type="number" value="0"></td>
+    <td><input class="p" type="number" value="0"></td>
+    <td><input class="p" type="number" value="0"></td>
+    <td><input class="qty" type="number" value="0" oninput="calc()"></td>
     <td class="total">0</td>
   `;
 
@@ -27,7 +27,7 @@ function calc() {
   let total = 0;
   let pieces = 0;
 
-  document.querySelectorAll("#items tr").forEach(row => {
+  document.querySelectorAll("tbody tr").forEach(row => {
 
     let prices = row.querySelectorAll(".p");
     let qty = row.querySelector(".qty").value;
