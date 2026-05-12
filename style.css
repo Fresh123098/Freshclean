@@ -1,0 +1,124 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #e9eef5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 95%;
+  margin: auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  background: #0a7;
+  color: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.header p {
+  margin: 5px 0 0;
+  font-size: 14px;
+}
+
+.customer-box {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.customer-box input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  width: 200px;
+}
+
+/* 🧾 TABLE LOOK IMPROVED */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+th {
+  background: #222;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  font-size: 14px;
+}
+
+input {
+  width: 55px;
+  padding: 5px;
+  text-align: center;
+}
+
+/* 💰 SUMMARY BOX */
+#summary {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+/* 🖨 BUTTON */
+button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #0a7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* 🧾 PRINT = REAL RECEIPT STYLE */
+@media print {
+
+  body {
+    background: white;
+  }
+
+  .customer-box,
+  button {
+    display: none;
+  }
+
+  table {
+    box-shadow: none;
+  }
+
+  .header {
+    background: white;
+    color: black;
+    border-bottom: 2px solid black;
+  }
+
+  #summary {
+    border: 1px solid black;
+  }
+}
