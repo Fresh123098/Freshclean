@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fresh & Clean Laundry POS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top">
+  <h1>🧺 Fresh & Clean Laundry POS</h1>
+</div>
+
+<div class="container">
+
+  <!-- LEFT ITEMS -->
+  <div class="left" id="items"></div>
+
+  <!-- RIGHT BILL -->
+  <div class="right">
+
+    <h2>🧾 Invoice</h2>
+
+    <input id="name" placeholder="Customer Name">
+    <input id="phone" placeholder="Phone (with country code)">
+    <input id="address" placeholder="Address">
+
+    <p id="date"></p>
+    <p id="delivery"></p>
+
+    <div id="bill"></div>
+
+    <h3 id="total">Total: 0</h3>
+
+    <button onclick="saveBill()">💾 Save</button>
+    <button onclick="printBill()">🖨 Print / PDF</button>
+    <button onclick="sendWhatsApp()">📲 WhatsApp</button>
+
+    <h3>📂 History</h3>
+    <input oninput="searchBills(this.value)" placeholder="Search invoice / name">
+    <div id="history"></div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
