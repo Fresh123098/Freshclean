@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fresh & Clean Laundry | Professional Dashboard</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f1f5f9;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #0f2b3d 0%, #1a4a5f 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.08);
+        }
+
+        .logo-area {
+            padding: 28px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo-area h2 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area h2 i {
+            color: #fbbf24;
+        }
+
+        .logo-area p {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 6px;
+        }
+
+        .nav-menu {
+            flex: 1;
+            padding: 24px 16px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 20px;
+            margin: 4px 0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .nav-item i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #fbbf24;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 32px;
+        }
+
+        /* Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .greeting h1 {
+            font-size: 1.8rem;
+            color: #0f172a;
+        }
+
+        .greeting p {
+            color: #475569;
+            margin-top: 6px;
+        }
+
+        .alert-banner {
+            background: #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 14px 20px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .alert-banner button {
+            background: #f59e0b;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .kpi-card {
+            background: white;
+            padding: 22px;
+            border-radius: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .kpi-card h4 {
+            color: #64748b;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .kpi-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0f4c5c;
+        }
+
+        /* Two Column Layout for Order Section */
+        .order-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            margin-top: 10px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #0f2b3d;
+        }
+
+        .service-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .service-info strong {
+            font-size: 1.1rem;
+        }
+
+        .price {
+            color: #f59e0b;
+            font-weight: 700;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .qty-control button {
+            width: 34px;
+            height: 34px;
+            border-radius: 12px;
+            border: none;
+            background: #f1f5f9;
+            font-size: 1.2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .qty-control span {
+            font-weight: 700;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .total-row {
+            font-weight: 800;
+            font-size: 1.3rem;
+            color: #0f4c5c;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid;
+        }
+
+        .btn-download {
+            width: 100%;
+            background: #0f4c5c;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-top: 22px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+
+        .btn-download:hover {
+            background: #1a6b7e;
+        }
+
+        @media (max-width: 900px) {
+            .sidebar { width: 80px; }
+            .sidebar span, .logo-area p { display: none; }
+            .order-section { grid-template-columns: 1fr; }
+            .main-content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-area">
+        <h2><i class="fas fa-tshirt"></i> Fresh&Clean</h2>
+        <p>Laundry Management</p>
+    </div>
+    <div class="nav-menu">
+        <div class="nav-item active"><i class="fas fa-home"></i> <span>Home</span></div>
+        <div class="nav-item"><i class="fas fa-plus-circle"></i> <span>Create Order</span></div>
+        <div class="nav-item"><i class="fas fa-box"></i> <span>Orders</span></div>
+        <div class="nav-item"><i class="fas fa-users"></i> <span>Customers</span></div>
+        <div class="nav-item"><i class="fas fa-chart-line"></i> <span>Reports</span></div>
+        <div class="nav-item"><i class="fas fa-store"></i> <span>Store Setup</span></div>
+        <div class="nav-item"><i class="fas fa-cog"></i> <span>System Settings</span></div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="top-header">
+        <div class="greeting">
+            <h1>Good Afternoon, Fresh Clean 👕</h1>
+            <p>Track orders & manage laundry services</p>
+        </div>
+        <i class="fas fa-bell" style="font-size: 1.4rem; color: #475569;"></i>
+    </div>
+
+    <div class="alert-banner">
+        <span><strong>⚠️ Subscription renewal failed</strong> — Please update your payment method to continue using justclean.</span>
+        <button>Renew</button>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card"><h4>Active Orders</h4><div class="kpi-number">952</div></div>
+        <div class="kpi-card"><h4>Pickup/Delivery</h4><div class="kpi-number">3</div></div>
+        <div class="kpi-card"><h4>justclean Orders</h4><div class="kpi-number">1</div></div>
+        <div class="kpi-card"><h4>Sales (BHD)</h4><div class="kpi-number">0.000</div></div>
+    </div>
+
+    <div class="order-section">
+        <!-- Left: Services -->
+        <div class="card">
+            <h3><i class="fas fa-soap"></i> Laundry Services</h3>
+            <div class="service-row">
+                <div><strong>🧺 Wash</strong><div class="price">2 BHD / cloth</div></div>
+                <div class="qty-control">
+                    <button onclick="updateQty('wash', -1)">-</button>
+                    <span id="washQty">0</span>
+                    <button onclick="updateQty('wash', 1)">+</button>
+                </div>
+            </div>
+            <div class="service-row">
+                <div><strong>🔥 Iron</strong><div class="price">1 BHD / cloth</div></div>
+                <div class="qty-control">
+                    <button onclick="updateQty('iron', -1)">-</button>
+                    <span id="ironQty">0</span>
+                    <button onclick="updateQty('iron', 1)">+</button>
+                </div>
+            </div>
+            <div class="service-row">
+                <div><strong>✨ Dry Clean</strong><div class="price">3 BHD / cloth</div></div>
+                <div class="qty-control">
+                    <button onclick="updateQty('dryclean', -1)">-</button>
+                    <span id="drycleanQty">0</span>
+                    <button onclick="updateQty('dryclean', 1)">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Customer Bill -->
+        <div class="card">
+            <h3><i class="fas fa-receipt"></i> Customer Bill</h3>
+            <div id="billDetails">
+                <div class="bill-row"><span>Wash (2 BHD)</span><span id="washTotal">0.00 BHD</span></div>
+                <div class="bill-row"><span>Iron (1 BHD)</span><span id="ironTotal">0.00 BHD</span></div>
+                <div class="bill-row"><span>Dry Clean (3 BHD)</span><span id="drycleanTotal">0.00 BHD</span></div>
+                <div class="bill-row total-row"><span>Total:</span><span id="grandTotal">0.00 BHD</span></div>
+            </div>
+            <button class="btn-download" onclick="downloadPDF()"><i class="fas fa-download"></i> Download Bill PDF</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // State
+    let quantities = {
+        wash: 0,
+        iron: 0,
+        dryclean: 0
+    };
+
+    const prices = {
+        wash: 2,
+        iron: 1,
+        dryclean: 3
+    };
+
+    function updateQty(service, delta) {
+        let newVal = quantities[service] + delta;
+        if (newVal < 0) newVal = 0;
+        quantities[service] = newVal;
+        document.getElementById(`${service}Qty`).innerText = newVal;
+        updateBill();
+    }
+
+    function updateBill() {
+        const washTotal = quantities.wash * prices.wash;
+        const ironTotal = quantities.iron * prices.iron;
+        const drycleanTotal = quantities.dryclean * prices.dryclean;
+        const grand = washTotal + ironTotal + drycleanTotal;
+
+        document.getElementById('washTotal').innerText = washTotal.toFixed(2) + ' BHD';
+        document.getElementById('ironTotal').innerText = ironTotal.toFixed(2) + ' BHD';
+        document.getElementById('drycleanTotal').innerText = drycleanTotal.toFixed(2) + ' BHD';
+        document.getElementById('grandTotal').innerText = grand.toFixed(2) + ' BHD';
+
+        // Also update Sales KPI
+        document.querySelectorAll('.kpi-card')[3].querySelector('.kpi-number').innerText = grand.toFixed(3) + ' BHD';
+    }
+
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const date = new Date().toLocaleString();
+        const grand = (quantities.wash * prices.wash + quantities.iron * prices.iron + quantities.dryclean * prices.dryclean).toFixed(2);
+
+        doc.setFontSize(20);
+        doc.text("Fresh & Clean Laundry", 20, 20);
+        doc.setFontSize(12);
+        doc.text(`Bill Date: ${date}`, 20, 35);
+        doc.text("----------------------------------------", 20, 45);
+        
+        let y = 60;
+        if (quantities.wash > 0) {
+            doc.text(`Wash x${quantities.wash}  →  ${(quantities.wash * prices.wash).toFixed(2)} BHD`, 20, y);
+            y += 10;
+        }
+        if (quantities.iron > 0) {
+            doc.text(`Iron x${quantities.iron}  →  ${(quantities.iron * prices.iron).toFixed(2)} BHD`, 20, y);
+            y += 10;
+        }
+        if (quantities.dryclean > 0) {
+            doc.text(`Dry Clean x${quantities.dryclean}  →  ${(quantities.dryclean * prices.dryclean).toFixed(2)} BHD`, 20, y);
+            y += 10;
+        }
+        if (y === 60) doc.text("No items selected", 20, y);
+        
+        doc.text("----------------------------------------", 20, y + 10);
+        doc.setFontSize(14);
+        doc.text(`Total: ${grand} BHD`, 20, y + 25);
+        doc.text("Thank you! Pickup ready in 2hrs", 20, y + 45);
+        
+        doc.save(`Laundry_Bill_${Date.now()}.pdf`);
+    }
+
+    updateBill();
+</script>
+</body>
+</html>
