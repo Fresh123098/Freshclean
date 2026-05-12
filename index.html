@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fresh & Clean Laundry POS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <h1>🧺 Fresh & Clean Laundry</h1>
+  <p>Professional Billing System</p>
+</div>
+
+<div class="pos">
+
+  <!-- LEFT: ITEMS -->
+  <div class="items" id="items"></div>
+
+  <!-- RIGHT: BILL -->
+  <div class="bill">
+
+    <h2>🧾 Invoice</h2>
+
+    <input id="cname" placeholder="Customer Name">
+    <input id="cphone" placeholder="Phone Number">
+
+    <div id="billList"></div>
+
+    <h3 id="total">Total: 0</h3>
+    <h4 id="pieces">Pieces: 0</h4>
+
+    <button onclick="printBill()">🖨 Print Invoice</button>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
