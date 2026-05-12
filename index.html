@@ -8,15 +8,17 @@
 
 <div class="container">
 
-  <h1>🧺 Fresh & Clean Laundry</h1>
-  <p>Professional Billing System</p>
+  <div class="header">
+    <h1>🧺 Fresh & Clean Laundry</h1>
+    <p>Professional Billing System</p>
+  </div>
 
-  <div class="customer">
+  <div class="customer-box">
     <input id="cname" placeholder="Customer Name">
     <input id="cphone" placeholder="Phone Number">
   </div>
 
-  <table id="table">
+  <table>
     <thead>
       <tr>
         <th>Item</th>
@@ -30,7 +32,7 @@
     <tbody id="items"></tbody>
   </table>
 
-  <h3 id="summary"></h3>
+  <h2 id="summary"></h2>
 
   <button onclick="printBill()">🖨 Print Bill</button>
 
