@@ -6,46 +6,50 @@ const items = [
 "Shoes","Bag"
 ];
 
-const table = document.getElementById("priceTable");
+const tbody = document.getElementById("items");
 
-items.forEach(item => {
-    let row = table.insertRow();
+items.forEach(name => {
+  let row = document.createElement("tr");
 
-    row.innerHTML = `
-        <td>${item}</td>
-        <td><input type="number" value="0" class="wi"></td>
-        <td><input type="number" value="0" class="io"></td>
-        <td><input type="number" value="0" class="dc"></td>
-        <td><input type="number" value="0" class="qty" oninput="calculate()"></td>
-        <td class="total">0</td>
-    `;
+  row.innerHTML = `
+    <td>${name}</td>
+    <td><input type="number" value="0" class="p"></td>
+    <td><input type="number" value="0" class="p"></td>
+    <td><input type="number" value="0" class="p"></td>
+    <td><input type="number" value="0" class="qty" oninput="calc()"></td>
+    <td class="total">0</td>
+  `;
+
+  tbody.appendChild(row);
 });
 
-function calculate() {
-    let grandTotal = 0;
-    let totalPieces = 0;
+function calc() {
+  let total = 0;
+  let pieces = 0;
 
-    document.querySelectorAll("#priceTable tr").forEach((row, i) => {
-        if (i === 0) return;
+  document.querySelectorAll("#items tr").forEach(row => {
 
-        let wi = row.querySelector(".wi").value;
-        let io = row.querySelector(".io").value;
-        let dc = row.querySelector(".dc").value;
-        let qty = row.querySelector(".qty").value;
+    let prices = row.querySelectorAll(".p");
+    let qty = row.querySelector(".qty").value;
 
-        let price = Math.max(wi, io, dc);
-        let total = price * qty;
+    let maxPrice = Math.max(
+      Number(prices[0].value),
+      Number(prices[1].value),
+      Number(prices[2].value)
+    );
 
-        row.querySelector(".total").innerText = total;
+    let rowTotal = maxPrice * qty;
 
-        grandTotal += total;
-        totalPieces += Number(qty);
-    });
+    row.querySelector(".total").innerText = rowTotal;
 
-    document.getElementById("summary").innerText =
-        "Total Pieces: " + totalPieces + " | Grand Total: " + grandTotal;
+    total += rowTotal;
+    pieces += Number(qty);
+  });
+
+  document.getElementById("summary").innerText =
+    "Total Pieces: " + pieces + " | Grand Total: " + total;
 }
 
 function printBill() {
-    window.print();
+  window.print();
 }
