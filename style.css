@@ -1,33 +1,56 @@
 body {
-    font-family: Arial;
-    text-align: center;
-    background: #f2f2f2;
+  font-family: Arial;
+  background: #f4f6f8;
+  text-align: center;
+}
+
+.container {
+  width: 95%;
+  margin: auto;
 }
 
 h1 {
-    background: #0a7;
-    color: white;
-    padding: 15px;
+  background: #0a7;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.customer input {
+  padding: 10px;
+  margin: 5px;
+  width: 200px;
 }
 
 table {
-    width: 95%;
-    margin: auto;
-    border-collapse: collapse;
-    background: white;
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background: white;
 }
 
 th, td {
-    border: 1px solid #ccc;
-    padding: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
 }
 
-input {
-    width: 60px;
+input.qty {
+  width: 60px;
 }
 
 button {
-    margin: 20px;
-    padding: 10px 30px;
-    font-size: 18px;
+  margin-top: 20px;
+  padding: 12px 25px;
+  font-size: 18px;
+  background: #0a7;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+@media print {
+  button, .customer {
+    display: none;
+  }
 }
