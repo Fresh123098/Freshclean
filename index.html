@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fresh and Clean Laundry — Bahrain</title>
+<style>
+:root {
+  --navy: #0b2436; --navy2: #123147;
+  --purple: #5b21b6; --purple-light: #ede9fe;
+  --orange: #f97316; --orange-light: #ffedd5;
+  --cyan: #06b6d4; --cyan-light: #cffafe;
+  --green: #10b981; --green2: #059669; --green-light: #dcfce7;
+  --bg: #f1f5f9; --card: #fff; --text: #0f172a;
+  --muted: #64748b; --border: #e2e8f0;
+  --red: #dc2626; --redbg: #fee2e2;
+  --amber: #f59e0b; --amberbg: #fef3c7;
+  --radius: 14px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; -webkit-font-smoothing: antialiased; }
+button, input, select, textarea { font-family: inherit; font-size: 14px; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+.hide { display: none !important; }
+
+/* ===== LOGIN ===== */
+.login { min-height: 100vh; display: grid; place-items: center; padding: 20px; background: linear-gradient(135deg, #0b2436, #0c4a6e 55%, #0369a1); }
+.login-box { background: #fff; border-radius: 22px; padding: 38px 32px; max-width: 400px; width: 100%; box-shadow: 0 30px 70px rgba(0,0,0,.35); text-align: center; }
+.login-box h1 { font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -.4px; color: var(--purple); }
+.login-box .sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+.login-box input { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 18px; text-align: center; letter-spacing: 6px; outline: none; margin-bottom: 12px; transition: .15s; }
+.login-box input:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(91,33,182,.13); }
+.login-err { color: var(--red); font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
+.login-btn { width: 100%; padding: 14px; border-radius: 12px; color: #fff; font-weight: 800; font-size: 15px; background: linear-gradient(135deg, var(--purple), #4c1d95); box-shadow: 0 8px 20px rgba(91,33,182,.35); transition: .15s; }
+.login-btn:hover { filter: brightness(1.1); }
+.login-hint { color: var(--muted); font-size: 11.5px; margin-top: 16px; }
+.login-hint b { color: var(--navy); letter-spacing: 1px; }
+
+/* ===== APP LAYOUT ===== */
+.app { display: flex; min-height: 100vh; }
+.sidebar { width: 230px; flex: 0 0 230px; background: var(--navy); color: #e2e8f0; position: fixed; top: 0; bottom: 0; left: 0; z-index: 60; display: flex; flex-direction: column; transition: transform .25s; }
+.sb-brand { padding: 18px 16px; border-bottom: 1px solid rgba(255,255,255,.08); display: flex; align-items: center; gap: 10px; }
+.sb-brand .txt { min-width: 0; }
+.sb-brand .nm { font-weight: 800; font-size: 13.5px; color: #fff; line-height: 1.2; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-brand .sb2 { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-top: 2px; }
+.sb-nav { padding: 12px 10px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 3px; }
+.nv { display: flex; align-items: center; gap: 11px; padding: 10px 13px; border-radius: 9px; color: #cbd5e1; font-size: 13.5px; font-weight: 600; transition: .15s; cursor: pointer; user-select: none; }
+.nv:hover { background: rgba(255,255,255,.07); color: #fff; }
+.nv.active { background: linear-gradient(135deg, var(--purple), #4c1d95); color: #fff; box-shadow: 0 6px 16px rgba(91,33,182,.4); }
+.nv .ic { font-size: 16px; width: 18px; text-align: center; }
+.sb-foot { padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.08); font-size: 11px; color: #94a3b8; }
+
+.main { flex: 1; margin-left: 230px; display: flex; flex-direction: column; min-width: 0; }
+.topbar { height: 62px; background: #fff; border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 40; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.topbar h1 { font-size: 17px; font-weight: 800; flex: 1; letter-spacing: -.3px; }
+.hamb { display: none; font-size: 22px; padding: 6px; border-radius: 8px; }
+.hamb:hover { background: var(--bg); }
+.content { padding: 20px; flex: 1; max-width: 1400px; width: 100%; margin: 0 auto; }
+.overlay { display: none; position: fixed; inset: 0; background: rgba(11,36,54,.55); z-index: 55; }
+.overlay.show { display: block; }
+
+/* ===== BUTTONS ===== */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px; border-radius: 9px; font-weight: 700; font-size: 13.5px; transition: .15s; white-space: nowrap; line-height: 1; }
+.btn:active { transform: scale(.97); }
+.btn-p { background: linear-gradient(135deg, var(--purple), #4c1d95); color: #fff; box-shadow: 0 3px 10px rgba(91,33,182,.25); }
+.btn-p:hover { filter: brightness(1.1); }
+.btn-g { background: linear-gradient(135deg, var(--green), var(--green2)); color: #fff; box-shadow: 0 3px 10px rgba(16,185,129,.28); }
+.btn-g:hover { filter: brightness(1.06); }
+.btn-o { background: linear-gradient(135deg, var(--orange), #ea580c); color: #fff; box-shadow: 0 3px 10px rgba(249,115,22,.25); }
+.btn-o:hover { filter: brightness(1.06); }
+.btn-gh { background: var(--bg); color: #334155; border: 1px solid var(--border); }
+.btn-gh:hover { background: var(--border); }
+.btn-d { background: var(--redbg); color: #991b1b; }
+.btn-d:hover { background: #fecaca; }
+.btn-sm { padding: 6px 11px; font-size: 12.5px; border-radius: 7px; }
+.btn-block { width: 100%; }
+.ico-btn { width: 32px; height: 32px; border-radius: 8px; display: inline-grid; place-items: center; font-size: 13px; background: var(--bg); color: #475569; transition: .15s; }
+.ico-btn:hover { background: var(--border); }
+.ico-btn.wa { background: var(--green-light); color: #166534; }
+.ico-btn.wa:hover { background: #a7f3d0; }
+.ico-btn.p { background: var(--purple-light); color: var(--purple); }
+.ico-btn.p:hover { background: #ddd6fe; }
+.ico-btn.d { background: var(--redbg); color: #991b1b; }
+.ico-btn.d:hover { background: #fecaca; }
+.actions { display: flex; gap: 5px; flex-wrap: wrap; }
+
+/* ===== CARDS ===== */
+.card { background: var(--card); border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.06); margin-bottom: 18px; overflow: hidden; border: 1px solid rgba(0,0,0,.03); }
+.card-h { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.card-h h2 { font-size: 14.5px; font-weight: 800; flex: 1; }
+.card-b { padding: 18px; }
+
+/* ===== STATS ===== */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-bottom: 18px; }
+.stat { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(0,0,0,.06); border-left: 4px solid var(--purple); display: flex; align-items: center; gap: 12px; }
+.stat.g { border-left-color: var(--green); }
+.stat.o { border-left-color: var(--orange); }
+.stat.c { border-left-color: var(--cyan); }
+.stat-ic { width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center; font-size: 20px; background: var(--purple-light); flex: 0 0 auto; }
+.stat.g .stat-ic { background: var(--green-light); }
+.stat.o .stat-ic { background: var(--orange-light); }
+.stat.c .stat-ic { background: var(--cyan-light); }
+.stat-lb { font-size: 10.5px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
+.stat-vl { font-size: 18px; font-weight: 800; margin-top: 2px; letter-spacing: -.3px; word-break: break-word; }
+
+/* ===== TABLES ===== */
+.tw { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th { text-align: left; padding: 10px 14px; background: #f8fafc; color: var(--muted); font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+tbody tr:hover { background: #f8fafc; }
+tbody tr:last-child td { border-bottom: none; }
+.empty { text-align: center; padding: 40px 16px; color: var(--muted); }
+.empty .big { font-size: 32px; display: block; margin-bottom: 6px; opacity: .6; }
+
+/* ===== BADGES ===== */
+.bdg { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 10px; font-weight: 800; letter-spacing: .3px; }
+.bdg.paid { background: var(--green-light); color: #166534; }
+.bdg.partial { background: var(--amberbg); color: #92400e; }
+.bdg.unpaid { background: var(--redbg); color: #991b1b; }
+
+/* ===== FORMS ===== */
+.field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+.field label { font-size: 11.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .3px; }
+.field input, .field select, .field textarea { padding: 9px 12px; border: 1.5px solid var(--border); border-radius: 9px; background: #fff; outline: none; transition: .15s; width: 100%; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(91,33,182,.12); }
+.field textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+.field .hint { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+/* ===== VIEWS ===== */
+.view { display: none; animation: fade .2s ease; }
+.view.active { display: block; }
+@keyframes fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== POS ===== */
+.pos { display: grid; grid-template-columns: 1.1fr 1fr; gap: 16px; align-items: start; }
+.pos-panel { background: #fff; border-radius: var(--radius); box-shadow: 0 1px 3px rgba(0,0,0,.06); overflow: hidden; border: 1px solid rgba(0,0,0,.03); }
+.pos-h { padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.pos-h h3 { font-size: 13.5px; font-weight: 800; flex: 1; }
+.pos-h input { flex: 1; min-width: 140px; padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px; outline: none; font-size: 13px; }
+.pos-h input:focus { border-color: var(--purple); }
+.pos-b { padding: 14px; }
+.it-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; max-height: 400px; overflow-y: auto; padding: 2px; }
+.it { padding: 10px; border: 1.5px solid var(--border); border-radius: 10px; background: #f8fafc; text-align: left; cursor: pointer; transition: .12s; display: flex; flex-direction: column; gap: 3px; }
+.it:hover { border-color: var(--purple); background: var(--purple-light); transform: translateY(-1px); }
+.it .nm { font-weight: 800; font-size: 12.5px; line-height: 1.25; }
+.it .ar { font-size: 10px; color: var(--muted); direction: rtl; }
+.it .pr { font-size: 11.5px; color: var(--purple); font-weight: 800; margin-top: 2px; }
+
+.cust-box { background: var(--purple-light); border: 1.5px solid #ddd6fe; border-radius: 10px; padding: 11px; margin-bottom: 12px; }
+.cust-box .lbl { font-size: 10.5px; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: .3px; margin-bottom: 6px; }
+.cust-box .row { display: grid; grid-template-columns: 1fr auto; gap: 6px; }
+.cust-box select, .cust-box input { width: 100%; padding: 8px 10px; border: 1.5px solid #ddd6fe; border-radius: 8px; background: #fff; outline: none; font-size: 13px; }
+.cust-box select:focus, .cust-box input:focus { border-color: var(--purple); }
+
+.cart { display: flex; flex-direction: column; gap: 7px; max-height: 340px; overflow-y: auto; margin-bottom: 12px; padding: 2px; }
+.cart-empty { text-align: center; padding: 26px 14px; color: var(--muted); font-size: 12.5px; }
+.cart-empty .big { font-size: 28px; display: block; margin-bottom: 4px; opacity: .5; }
+.ci { background: #f8fafc; border: 1px solid var(--border); border-radius: 10px; padding: 9px; }
+.ci-h { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; }
+.ci-h .nm { font-weight: 800; font-size: 13px; flex: 1; line-height: 1.25; }
+.ci-h .del { width: 24px; height: 24px; border-radius: 6px; background: var(--redbg); color: #991b1b; font-weight: 800; font-size: 12px; display: grid; place-items: center; }
+.ci-h .del:hover { background: #fecaca; }
+.ci-c { display: grid; grid-template-columns: 1.2fr .7fr .9fr auto; gap: 6px; align-items: center; }
+.ci-c select, .ci-c input { padding: 6px 8px; border: 1.5px solid var(--border); border-radius: 7px; font-size: 12.5px; outline: none; background: #fff; width: 100%; }
+.ci-c select:focus, .ci-c input:focus { border-color: var(--purple); }
+.ci-tot { font-weight: 800; font-size: 12.5px; text-align: right; color: var(--text); white-space: nowrap; }
+
+.tot { background: #f8fafc; border: 1px solid var(--border); border-radius: 11px; padding: 12px 14px; margin-bottom: 12px; }
+.tot .r { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 4px 0; color: #475569; }
+.tot .r .v { font-weight: 700; color: var(--text); }
+.tot .r input { width: 80px; padding: 4px 8px; border: 1.5px solid var(--border); border-radius: 6px; text-align: right; font-weight: 700; font-size: 12.5px; outline: none; background: #fff; }
+.tot .r input:focus { border-color: var(--purple); }
+.tot .r.grand { border-top: 2px dashed #cbd5e1; margin-top: 8px; padding-top: 10px; font-size: 15px; font-weight: 800; color: var(--text); }
+.tot .r.grand .v { font-size: 17px; color: var(--purple); }
+.tot .r.bal { font-weight: 800; margin-top: 6px; border-top: 1px dashed #cbd5e1; padding-top: 8px; }
+.tot .r.bal .v.big { font-size: 15px; }
+.pay-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.pay-row .field { margin: 0; }
+.pay-row .field label { font-size: 10.5px; }
+.pay-row .field input, .pay-row .field select { padding: 7px 10px; font-size: 12.5px; }
+
+.pos-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+.pos-actions .btn { width: 100%; }
+
+/* ===== MODAL ===== */
+.modal { position: fixed; inset: 0; background: rgba(11,36,54,.6); backdrop-filter: blur(4px); display: none; align-items: flex-start; justify-content: center; padding: 20px; z-index: 200; overflow-y: auto; }
+.modal.show { display: flex; }
+.modal-box { background: #fff; border-radius: 18px; width: 100%; max-width: 540px; margin: auto; box-shadow: 0 20px 50px rgba(0,0,0,.25); overflow: hidden; animation: pop .2s ease; }
+.modal-box.wide { max-width: 820px; }
+@keyframes pop { from { transform: scale(.95) translateY(8px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+.modal-h { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+.modal-h h3 { font-size: 15px; font-weight: 800; flex: 1; }
+.modal-x { width: 30px; height: 30px; border-radius: 8px; background: var(--bg); color: #475569; display: grid; place-items: center; font-size: 13px; }
+.modal-x:hover { background: var(--border); }
+.modal-b { padding: 20px; max-height: 70vh; overflow-y: auto; }
+.modal-f { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; background: #f8fafc; }
+
+/* ===== INVOICE ===== */
+.inv { background: #fff; padding: 32px 34px; font-size: 12.5px; max-width: 780px; margin: 0 auto; }
+.inv-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding-bottom: 18px; border-bottom: 2px solid var(--border); margin-bottom: 22px; }
+.inv-shop { display: flex; gap: 12px; align-items: flex-start; }
+.inv-shop .nm { font-size: 18px; font-weight: 800; line-height: 1.15; margin-bottom: 4px; letter-spacing: -.3px; color: var(--purple); }
+.inv-shop .mt { font-size: 11px; color: var(--muted); line-height: 1.55; }
+.inv-ttl { text-align: right; }
+.inv-ttl h2 { font-size: 22px; font-weight: 900; color: var(--orange); letter-spacing: 2px; line-height: 1; margin-bottom: 6px; }
+.inv-ttl .no { font-size: 13px; font-weight: 800; margin-bottom: 4px; }
+.inv-ttl .dt { font-size: 11px; color: var(--muted); line-height: 1.6; }
+.inv-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.inv-blk h4 { font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 800; margin-bottom: 5px; }
+.inv-blk p { font-size: 12.5px; line-height: 1.55; margin: 0; }
+.inv-blk p.mu { color: var(--muted); font-size: 11.5px; }
+.inv-tbl { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 12px; }
+.inv-tbl th { background: var(--purple-light); color: var(--purple); padding: 8px 10px; text-align: left; font-size: 9.5px; text-transform: uppercase; letter-spacing: .5px; font-weight: 800; border-bottom: 2px solid #ddd6fe; }
+.inv-tbl td { padding: 8px 10px; border-bottom: 1px solid #f1f5f9; }
+.inv-tbl td.n, .inv-tbl th.n { text-align: right; }
+.inv-sum { display: flex; justify-content: flex-end; margin-bottom: 18px; }
+.inv-sum-box { width: 100%; max-width: 300px; }
+.inv-sum-box .r { display: flex; justify-content: space-between; padding: 4px 0; font-size: 12px; color: #475569; }
+.inv-sum-box .r .v { font-weight: 700; color: var(--text); }
+.inv-sum-box .r.ttl { border-top: 2px solid #cbd5e1; margin-top: 6px; padding-top: 9px; font-size: 14px; font-weight: 800; color: var(--text); }
+.inv-sum-box .r.ttl .v { font-size: 15px; color: var(--purple); }
+.inv-sum-box .r.bal { background: var(--amberbg); padding: 7px 9px; border-radius: 7px; margin-top: 6px; font-weight: 800; }
+.inv-sum-box .r.bal .v { color: #92400e; font-size: 13px; }
+.inv-sum-box .r.bal.pd { background: var(--green-light); }
+.inv-sum-box .r.bal.pd .v { color: #166534; }
+.inv-ft { padding-top: 14px; border-top: 1px solid var(--border); font-size: 11px; color: var(--muted); text-align: center; }
+
+/* ===== TOAST ===== */
+.toasts { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 500; display: flex; flex-direction: column; gap: 7px; align-items: center; pointer-events: none; }
+.toast { background: #0f172a; color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(14px); transition: .25s; max-width: 90vw; text-align: center; }
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.ok { background: linear-gradient(135deg, var(--green2), #047857); }
+.toast.err { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.toast.info { background: linear-gradient(135deg, var(--purple), #4c1d95); }
+
+/* ===== PRINT ===== */
+#printArea { display: none; }
+@media print {
+  @page { size: A4; margin: 10mm; }
+  body * { visibility: hidden; }
+  #printArea, #printArea * { visibility: visible; }
+  #printArea { display: block !important; position: absolute; top: 0; left: 0; width: 100%; background: #fff; }
+  #printArea .inv { padding: 0; max-width: none; }
+  .no-print { display: none !important; }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 1000px) { .pos { grid-template-columns: 1fr; } .it-grid { max-height: 280px; } }
+@media (max-width: 900px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .hamb { display: block; }
+  .content { padding: 14px; }
+  .topbar { padding: 0 14px; height: 58px; }
+  .topbar h1 { font-size: 15px; }
+  .grid2, .grid3 { grid-template-columns: 1fr; }
+  .inv-meta { grid-template-columns: 1fr; }
+  .inv { padding: 18px 16px; }
+  .inv-top { flex-direction: column; gap: 12px; }
+  .inv-ttl { text-align: left; }
+  .stat-vl { font-size: 16px; }
+  .card-h { padding: 12px 14px; }
+  .card-b { padding: 14px; }
+}
+@media (max-width: 560px) {
+  .ci-c { grid-template-columns: 1fr 1fr; }
+  .ci-tot { grid-column: 1/-1; text-align: left; }
+  .pos-actions { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .stat { padding: 10px 12px; gap: 8px; }
+  .stat-ic { width: 34px; height: 34px; font-size: 16px; border-radius: 9px; }
+  .stat-lb { font-size: 9.5px; }
+  .stat-vl { font-size: 14px; }
+  .login-box { padding: 28px 22px; }
+  .it-grid { grid-template-columns: repeat(auto-fill, minmax(105px, 1fr)); }
+}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="login" class="login">
+  <div class="login-box">
+    <div id="loginLogo" style="margin-bottom:16px;display:flex;justify-content:center"></div>
+    <h1>Fresh and Clean Laundry</h1>
+    <div class="sub">Bahrain • Admin Access</div>
+    <div class="login-err" id="loginErr"></div>
+    <input type="password" id="pinInput" placeholder="••••" inputmode="numeric" autocomplete="off" maxlength="8">
+    <button class="login-btn" id="loginBtn">Login</button>
+    <p class="login-hint">Default PIN: <b>1234</b> (change in Settings)</p>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" class="app hide">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div id="sideLogo"></div>
+      <div class="txt">
+        <div class="nm" id="sideNm">Fresh & Clean</div>
+        <div class="sb2">Laundry • Bahrain</div>
+      </div>
+    </div>
+    <nav class="sb-nav" id="navMenu"></nav>
+    <div class="sb-foot">v1.0 • Data saved on this device</div>
+  </aside>
+  <div class="overlay" id="overlay"></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="hamb" id="hamb">☰</button>
+      <h1 id="pageTitle">Dashboard</h1>
+      <button class="btn btn-p btn-sm" id="topNewBill">＋ New Bill</button>
+    </header>
+    <div class="content">
+      <section id="v-dashboard" class="view active"></section>
+      <section id="v-pos" class="view"></section>
+      <section id="v-orders" class="view"></section>
+      <section id="v-items" class="view"></section>
+      <section id="v-customers" class="view"></section>
+      <section id="v-reports" class="view"></section>
+      <section id="v-settings" class="view"></section>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="modal"></div>
+<div class="toasts" id="toasts"></div>
+<div id="printArea"></div>
+
+<script>
+/* ==========================================================================
+   FRESH AND CLEAN LAUNDRY — Single-file billing app
+   Storage: localStorage (browser). Backup from Settings regularly!
+   ========================================================================== */
+const KEY = 'fcl_laundry_v1';
+const SES = 'fcl_session';
+
+/* ---------- LOGO SVG (Matches the uploaded original) ---------- */
+function logo(w=120) {
+  return `<svg viewBox="0 0 400 180" width="${w}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="puGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#4c1d95"/><stop offset="1" stop-color="#8b5cf6"/>
+      </linearGradient>
+    </defs>
+    <!-- Orange curved text -->
+    <path id="curvePath" d="M 40,85 Q 130,20 250,60" fill="transparent"/>
+    <text font-family="'Arial Black', sans-serif" font-weight="900" font-size="22" fill="#f97316" letter-spacing="0.5">
+      <textPath href="#curvePath" startOffset="8%">fresh and clean</textPath>
+    </text>
+    
+    <!-- Big Purple Cloud/Machine shape -->
+    <path d="M 50,95 a 45,45 0 0,1 90,-25 a 55,55 0 0,1 100,10 a 45,45 0 0,1 20,80 l -190,0 a 45,45 0 0,1 -20,-65 z" fill="url(#puGrad)" opacity="0.95"/>
+    
+    <!-- White cloud inner -->
+    <path d="M 75,120 a 25,25 0 0,1 55,0 a 35,35 0 0,1 45,25 l -120,0 a 30,30 0 0,1 20,-25 z" fill="#fff"/>
+    
+    <!-- Washing machine body -->
+    <rect x="95" y="100" width="65" height="75" rx="8" fill="#fff" stroke="#4c1d95" stroke-width="5"/>
+    <rect x="105" y="110" width="18" height="9" rx="2" fill="#f97316"/>
+    <circle cx="127" cy="145" r="16" fill="#e0f2fe" stroke="#4c1d95" stroke-width="4"/>
+    <path d="M 118,148 q 9,9 18,0" fill="none" stroke="#06b6d4" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Cyan water waves -->
+    <path d="M 60,175 q 40,-18 90,0 q 40,18 90,0" fill="none" stroke="#06b6d4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M 80,182 q 30,-12 70,0" fill="none" stroke="#4c1d95" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Script "Laundry" -->
+    <text x="185" y="140" font-family="'Brush Script MT', 'Georgia', cursive" font-size="65" fill="#4c1d95" font-style="italic">Laundry</text>
+    
+    <!-- Orange Sparkles -->
+    <path d="M 310,75 L 315,85 L 325,90 L 315,95 L 310,105 L 305,95 L 295,90 L 305,85 Z" fill="#f97316"/>
+    <path d="M 240,50 L 243,57 L 250,60 L 243,63 L 240,70 L 237,63 L 230,60 L 237,57 Z" fill="#f97316"/>
+  </svg>`;
+}
+
+/* ---------- DEFAULT DATA ---------- */
+const DEF_ITEMS = [
+  {name:'Shirt',              ar:'قميص',         wash:0.500, iron:0.300, dry:1.000},
+  {name:'T-Shirt',            ar:'تي شيرت',      wash:0.400, iron:0.250, dry:0.800},
+  {name:'Trousers',           ar:'بنطال',        wash:0.600, iron:0.300, dry:1.000},
+  {name:'Jeans',              ar:'جينز',         wash:0.700, iron:0.400, dry:1.200},
+  {name:'Suit',               ar:'بدلة',         wash:2.000, iron:1.000, dry:3.000},
+  {name:'Abaya',              ar:'عباية',        wash:1.000, iron:0.500, dry:1.500},
+  {name:'Dishdasha / Thobe',  ar:'دشداشة',       wash:0.800, iron:0.400, dry:1.200},
+  {name:'Dress',              ar:'فستان',        wash:1.000, iron:0.500, dry:2.000},
+  {name:'Jacket',             ar:'جاكيت',        wash:1.500, iron:0.700, dry:2.500},
+  {name:'Bedsheet',           ar:'شرشف',         wash:1.000, iron:0.500, dry:1.500},
+  {name:'Blanket',            ar:'بطانية',       wash:2.000, iron:1.000, dry:3.000},
+  {name:'Towel',              ar:'منشفة',        wash:0.400, iron:0.200, dry:0.600},
+  {name:'Curtain',            ar:'ستارة',        wash:1.500, iron:0.800, dry:2.500},
+  {name:'Carpet',             ar:'سجادة',        wash:3.000, iron:0.000, dry:4.000}
+];
+
+const DEF_SETTINGS = {
+  shopName:'Fresh and Clean Laundry',
+  phone:'+973 3300 0000',
+  address:'Manama, Kingdom of Bahrain',
+  countryCode:'973',
+  currency:'BHD',
+  invoicePrefix:'FCL-',
+  nextInvoiceNo:1,
+  vatEnabled:false,
+  vatRate:10,
+  pin:'1234',
+  logo:'',
+  deliveryDays:2
+};
+
+/* ---------- STATE ---------- */
+let state = load();
+let cart = [];
+let editId = null;
+let curCust = null;
+
+function uid(){ return Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4); }
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    if(raw){
+      const d = JSON.parse(raw);
+      if(d && d.settings && Array.isArray(d.items)){
+        d.settings = Object.assign({}, DEF_SETTINGS, d.settings);
+        if(!Array.isArray(d.customers)) d.customers = [];
+        if(!Array.isArray(d.orders)) d.orders = [];
+        return d;
+      }
+    }
+  }catch(e){}
+  const s = {
+    settings: JSON.parse(JSON.stringify(DEF_SETTINGS)),
+    items: DEF_ITEMS.map(i => ({id: uid(), ...i})),
+    customers: [],
+    orders: []
+  };
+  seedSample(s);
+  return s;
+}
+
+function seedSample(s){
+  const c1 = {id: uid(), name:'Ahmed Al Khalifa', phone:'+973 3300 1111', address:'Riffa, Bahrain'};
+  const c2 = {id: uid(), name:'Fatima Al Sayed',   phone:'+973 3300 2222', address:'Manama, Bahrain'};
+  const c3 = {id: uid(), name:'Mohammed Ali',      phone:'+973 3300 3333', address:'Muharraq, Bahrain'};
+  s.customers = [c1, c2, c3];
+
+  const shirt = s.items.find(i => i.name === 'Shirt');
+  const abaya = s.items.find(i => i.name === 'Abaya');
+  const thobe = s.items.find(i => i.name === 'Dishdasha / Thobe');
+  const towel = s.items.find(i => i.name === 'Towel');
+
+  const d = new Date();
+  const mkd = (off) => { const x = new Date(d); x.setDate(x.getDate() - off); return x.toISOString().slice(0,10); };
+  const addDays = (iso,n) => { const x = new Date(iso+'T12:00:00'); x.setDate(x.getDate()+n); return x.toISOString().slice(0,10); };
+
+  function mk(cust, dateOff, items, paid, method, status){
+    const date = mkd(dateOff);
+    const lines = items.map(x => ({
+      id: uid(), itemId: x.it.id, name: x.it.name,
+      service: x.svc, qty: x.qty,
+      price: x.svc === 'Wash' ? x.it.wash : x.svc === 'Iron' ? x.it.iron : x.svc === 'Dry Clean' ? x.it.dry : (x.it.wash + x.it.iron)
+    }));
+    const sub = lines.reduce((a,b) => a + b.qty * b.price, 0);
+    const disc = 0;
+    const vatRate = 0;
+    const vat = 0;
+    const total = +(sub - disc + vat).toFixed(3);
+    const paidAmt = paid ? total : +(total * 0.4).toFixed(3);
+    const bal = +(total - paidAmt).toFixed(3);
+    return {
+      id: uid(), invNo: s.settings.invoicePrefix + String(s.settings.nextInvoiceNo++).padStart(4,'0'),
+      customerId: cust.id, customerName: cust.name, customerPhone: cust.phone,
+      items: lines, discount: disc, vatRate, vatAmount: vat,
+      subtotal: +sub.toFixed(3), total, paid: paidAmt, balance: bal,
+      paymentMethod: method, status, date, deliveryDate: addDays(date, 2),
+      createdAt: Date.now()
+    };
+  }
+
+  s.orders = [
+    mk(c1, 1, [{it: shirt, svc:'Wash', qty:3}, {it: towel, svc:'Iron', qty:2}], true, 'Cash', 'Delivered'),
+    mk(c2, 3, [{it: abaya, svc:'Dry Clean', qty:2}, {it: thobe, svc:'Wash', qty:3}], false, 'BenefitPay', 'Ready for Pickup'),
+    mk(c3, 0, [{it: shirt, svc:'Wash & Iron', qty:5}], false, 'Cash', 'Washing')
+  ];
+  s.settings.nextInvoiceNo = 4;
+}
+
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){ toast('Storage full','err'); } }
+
+/* ---------- HELPERS ---------- */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const pad = n => String(n).padStart(2,'0');
+const todayISO = () => { const d = new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const addDays = (iso,n) => { const x = new Date(iso+'T12:00:00'); x.setDate(x.getDate()+n); return x.toISOString().slice(0,10); };
+const money = n => (state.settings.currency || 'BHD') + ' ' + (Number(n)||0).toFixed(3);
+const fmtDate = iso => { if(!iso) return '—'; const [y,m,d] = iso.split('-'); return `${d}/${m}/${y}`; };
+
+function toast(msg, type='info'){
+  const w = $('toasts');
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  w.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => { el.classList.remove('show'); setTimeout(() => el.remove(), 300); }, 2400);
+}
+
+function openModal(html, wide){
+  const m = $('modal');
+  m.innerHTML = `<div class="modal-box ${wide?'wide':''}">${html}</div>`;
+  m.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  $('modal').classList.remove('show');
+  $('modal').innerHTML = '';
+  document.body.style.overflow = '';
+}
+$('modal').addEventListener('click', e => { if(e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+
+function itemById(id){ return state.items.find(i => i.id === id); }
+function custById(id){ return state.customers.find(c => c.id === id); }
+
+function priceFor(item, svc){
+  if(!item) return 0;
+  if(svc === 'Wash') return Number(item.wash) || 0;
+  if(svc === 'Iron') return Number(item.iron) || 0;
+  if(svc === 'Dry Clean') return Number(item.dry) || 0;
+  if(svc === 'Wash & Iron') return (Number(item.wash) || 0) + (Number(item.iron) || 0);
+  return 0;
+}
+function defSvc(item){
+  if(item.wash > 0) return 'Wash';
+  if(item.dry > 0) return 'Dry Clean';
+  if(item.iron > 0) return 'Iron';
+  return 'Wash';
+}
+function ordSub(o){ return (o.items||[]).reduce((a,b) => a + b.qty * b.price, 0); }
+function ordTotal(o){ return +(Math.max(0, ordSub(o) - (o.discount||0) + (o.vatAmount||0))).toFixed(3); }
+function ordBal(o){ return +(Math.max(0, ordTotal(o) - (o.paid||0))).toFixed(3); }
+function payStatus(o){
+  if(o.status === 'Cancelled') return 'cancelled';
+  const bal = ordBal(o), paid = o.paid || 0;
+  if(bal <= 0.0005) return 'paid';
+  if(paid > 0.0005) return 'partial';
+  return 'unpaid';
+}
+function payBadge(o){
+  const s = payStatus(o);
+  const cls = s === 'paid' ? 'paid' : s === 'partial' ? 'partial' : 'unpaid';
+  const lbl = s === 'paid' ? 'PAID' : s === 'partial' ? 'PARTIAL' : s === 'cancelled' ? 'CANCELLED' : 'UNPAID';
+  return `<span class="bdg ${cls}">${lbl}</span>`;
+}
+
+/* ---------- AUTH ---------- */
+function isAuth(){ return sessionStorage.getItem(SES) === 'yes'; }
+function setAuth(){ sessionStorage.setItem(SES, 'yes'); }
+function doLogout(){ sessionStorage.removeItem(SES); location.reload(); }
+
+/* ---------- NAV ---------- */
+const NAV = [
+  {k:'dashboard', ic:'📊', t:'Dashboard'},
+  {k:'pos',       ic:'🧾', t:'New Bill'},
+  {k:'orders',    ic:'📋', t:'Invoices'},
+  {k:'items',     ic:'👕', t:'Items'},
+  {k:'customers', ic:'👥', t:'Customers'},
+  {k:'reports',   ic:'📈', t:'Reports'},
+  {k:'settings',  ic:'⚙️', t:'Settings'}
+];
+
+let curView = 'dashboard';
+
+function buildNav(){
+  $('navMenu').innerHTML = NAV.map(n => `<a class="nv" data-v="${n.k}"><span class="ic">${n.ic}</span><span>${n.t}</span></a>`).join('');
+  document.querySelectorAll('.nv').forEach(el => el.addEventListener('click', () => go(el.dataset.v)));
+}
+
+function go(v){
+  if(v === 'pos'){ editId = null; cart = []; curCust = null; }
+  curView = v;
+  document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+  const el = $('v-' + v);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.nv').forEach(n => n.classList.toggle('active', n.dataset.v === v));
+  const navItem = NAV.find(n => n.k === v);
+  $('pageTitle').textContent = navItem ? navItem.t : '';
+  $('sidebar').classList.remove('open');
+  $('overlay').classList.remove('show');
+  if(v === 'dashboard') renderDash();
+  if(v === 'pos') renderPos();
+  if(v === 'orders') renderOrders();
+  if(v === 'items') renderItems();
+  if(v === 'customers') renderCustomers();
+  if(v === 'reports') renderReports();
+  if(v === 'settings') renderSettings();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* =====================================================================
+   DASHBOARD
+   ===================================================================== */
+function renderDash(){
+  const now = new Date();
+  const tdy = todayISO();
+  const monthStart = tdy.slice(0,7) + '-01';
+  const active = state.orders.filter(o => o.status !== 'Cancelled');
+  const todaySales = active.filter(o => o.date === tdy).reduce((a,o) => a + ordTotal(o), 0);
+  const monthSales = active.filter(o => o.date >= monthStart).reduce((a,o) => a + ordTotal(o), 0);
+  const due = state.orders.reduce((a,o) => a + ordBal(o), 0);
+  const cnt = active.filter(o => o.date === tdy).length;
+
+  const recent = [...state.orders].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.createdAt - a.createdAt).slice(0,8);
+
+  $('v-dashboard').innerHTML = `
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-ic">💰</div>
+        <div><div class="stat-lb">Today's Sales</div><div class="stat-vl">${money(todaySales)}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px">${cnt} invoices</div></div>
+      </div>
+      <div class="stat g">
+        <div class="stat-ic">📅</div>
+        <div><div class="stat-lb">This Month</div><div class="stat-vl">${money(monthSales)}</div></div>
+      </div>
+      <div class="stat o">
+        <div class="stat-ic">⏳</div>
+        <div><div class="stat-lb">Outstanding</div><div class="stat-vl">${money(due)}</div></div>
+      </div>
+      <div class="stat c">
+        <div class="stat-ic">🧾</div>
+        <div><div class="stat-lb">Total Invoices</div><div class="stat-vl">${state.orders.length}</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h">
+        <h2>Recent Invoices</h2>
+        <button class="btn btn-gh btn-sm" onclick="go('orders')">View all →</button>
+      </div>
+      <div class="tw">
+        ${recent.length ? `
+        <table><thead><tr>
+          <th>Invoice</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th><th></th>
+        </tr></thead><tbody>
+        ${recent.map(o => `
+          <tr>
+            <td><strong>${esc(o.invNo)}</strong></td>
+            <td>${esc(o.customerName)}</td>
+            <td>${fmtDate(o.date)}</td>
+            <td><strong>${money(ordTotal(o))}</strong></td>
+            <td>${payBadge(o)}</td>
+            <td><div class="actions">
+              <button class="ico-btn wa" onclick="waOrder('${o.id}')">💬</button>
+              <button class="ico-btn p" onclick="viewInvoice('${o.id}')">👁</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody></table>` : `<div class="empty"><span class="big">🧺</span>No invoices yet. Click "New Bill" to start.</div>`}
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+      <button class="card" style="padding:16px;text-align:left;cursor:pointer" onclick="go('pos')">
+        <div style="font-size:22px;margin-bottom:5px">🧾</div>
+        <div style="font-weight:800;font-size:13.5px">New Bill</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:2px">Create invoice</div>
+      </button>
+      <button class="card" style="padding:16px;text-align:left;cursor:pointer" onclick="go('orders')">
+        <div style="font-size:22px;margin-bottom:5px">📋</div>
+        <div style="font-weight:800;font-size:13.5px">Invoices</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:2px">Manage all bills</div>
+      </button>
+      <button class="card" style="padding:16px;text-align:left;cursor:pointer" onclick="go('reports')">
+        <div style="font-size:22px;margin-bottom:5px">📈</div>
+        <div style="font-weight:800;font-size:13.5px">Reports</div>
+        <div style="font-size:11.5px;color:var(--muted);margin-top:2px">Sales & analytics</div>
+      </button>
+    </div>
+  `;
+}
+
+/* =====================================================================
+   POS / NEW BILL
+   ===================================================================== */
+function renderPos(){
+  const editing = editId ? state.orders.find(o => o.id === editId) : null;
+  $('v-pos').innerHTML = `
+    <div class="pos">
+      <div class="pos-panel">
+        <div class="pos-h">
+          <h3>Select Items</h3>
+          <input id="posSearch" placeholder="Search items…" autocomplete="off">
+        </div>
+        <div class="pos-b"><div class="it-grid" id="posItems"></div></div>
+      </div>
+
+      <div class="pos-panel">
+        <div class="pos-h">
+          <h3>${editing ? 'Edit ' + esc(editing.invNo) : 'Bill'}</h3>
+          <button class="btn btn-gh btn-sm" id="posClear">Clear</button>
+        </div>
+        <div class="pos-b">
+          <div class="cust-box">
+            <div class="lbl">Customer</div>
+            <div class="row">
+              <select id="posCust"></select>
+              <button class="btn btn-gh btn-sm" id="posNewCust">+ New</button>
+            </div>
+          </div>
+
+          <div class="cart" id="posCart"></div>
+          <div class="tot" id="posTotals"></div>
+
+          <div class="pos-actions">
+            <button class="btn btn-gh" id="posSave">💾 Save</button>
+            <button class="btn btn-p" id="posSavePrint">🖨 Save & Print</button>
+            <button class="btn btn-g" style="grid-column:1/-1" id="posSaveWa">💬 Save & WhatsApp</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  $('posSearch').addEventListener('input', filterPosItems);
+  $('posClear').addEventListener('click', () => { cart = []; curCust = null; editId = null; renderPos(); });
+  $('posNewCust').addEventListener('click', newCustModal);
+  $('posSave').addEventListener('click', () => saveBill(false, false));
+  $('posSavePrint').addEventListener('click', () => saveBill(true, false));
+  $('posSaveWa').addEventListener('click', () => saveBill(false, true));
+
+  if(editing){
+    cart = editing.items.map(i => ({uid: i.id || uid(), itemId: i.itemId, name: i.name, service: i.service, qty: i.qty, price: i.price}));
+    curCust = custById(editing.customerId);
+  }
+
+  renderCustSelect();
+  renderPosItems('');
+  renderCart();
+}
+
+function renderCustSelect(){
+  const s = $('posCust'); if(!s) return;
+  s.innerHTML = '<option value="">— Select customer —</option>' +
+    state.customers.slice().sort((a,b) => a.name.localeCompare(b.name))
+      .map(c => `<option value="${c.id}" ${curCust && c.id === curCust.id ? 'selected' : ''}>${esc(c.name)}${c.phone ? ' • ' + esc(c.phone) : ''}</option>`).join('');
+  s.onchange = () => { curCust = custById(s.value) || null; };
+}
+
+function renderPosItems(filter){
+  const g = $('posItems'); if(!g) return;
+  const list = state.items.filter(i => !filter || i.name.toLowerCase().includes(filter.toLowerCase()));
+  g.innerHTML = list.map(i => {
+    const pr = priceFor(i, defSvc(i));
+    return `<button class="it" data-id="${i.id}">
+      <div class="nm">${esc(i.name)}</div>
+      <div class="ar">${esc(i.ar || '')}</div>
+      <div class="pr">${money(pr)}</div>
+    </button>`;
+  }).join('') || '<div class="empty" style="grid-column:1/-1">No items. Add items from Items section.</div>';
+  g.querySelectorAll('.it').forEach(b => b.onclick = () => addCart(b.dataset.id));
+}
+
+function filterPosItems(){
+  renderPosItems($('posSearch').value);
+}
+
+function addCart(itemId){
+  const it = itemById(itemId);
+  if(!it) return;
+  const svc = defSvc(it);
+  cart.push({uid: uid(), itemId: it.id, name: it.name, service: svc, qty: 1, price: priceFor(it, svc)});
+  renderCart();
+}
+
+function renderCart(){
+  const c = $('posCart'); if(!c) return;
+  if(!cart.length){
+    c.innerHTML = '<div class="cart-empty"><span class="big">🛒</span>Cart is empty. Tap items to add.</div>';
+    renderTotals();
+    return;
+  }
+  c.innerHTML = cart.map(l => `
+    <div class="ci" data-uid="${l.uid}">
+      <div class="ci-h">
+        <div class="nm">${esc(l.name)}</div>
+        <button class="del" data-uid="${l.uid}">✕</button>
+      </div>
+      <div class="ci-c">
+        <select class="svc" data-uid="${l.uid}">
+          ${['Wash','Iron','Dry Clean','Wash & Iron'].map(s => `<option value="${s}" ${s===l.service?'selected':''}>${s}</option>`).join('')}
+        </select>
+        <input class="qty" type="number" min="0.01" step="0.01" value="${l.qty}" data-uid="${l.uid}">
+        <input class="price" type="number" min="0" step="0.001" value="${l.price}" data-uid="${l.uid}">
+        <div class="ci-tot">${money(l.qty * l.price)}</div>
+      </div>
+    </div>
+  `).join('');
+
+  c.querySelectorAll('.del').forEach(b => b.onclick = () => { cart = cart.filter(x => x.uid !== b.dataset.uid); renderCart(); });
+  c.querySelectorAll('.svc').forEach(s => s.onchange = () => {
+    const l = cart.find(x => x.uid === s.dataset.uid);
+    if(!l) return;
+    l.service = s.value;
+    const item = itemById(l.itemId);
+    l.price = priceFor(item, s.value);
+    renderCart();
+  });
+  c.querySelectorAll('.qty').forEach(inp => inp.oninput = () => {
+    const l = cart.find(x => x.uid === inp.dataset.uid);
+    if(!l) return;
+    l.qty = Math.max(0.01, parseFloat(inp.value) || 0.01);
+    inp.closest('.ci').querySelector('.ci-tot').textContent = money(l.qty * l.price);
+    renderTotals();
+  });
+  c.querySelectorAll('.price').forEach(inp => inp.oninput = () => {
+    const l = cart.find(x => x.uid === inp.dataset.uid);
+    if(!l) return;
+    l.price = Math.max(0, parseFloat(inp.value) || 0);
+    inp.closest('.ci').querySelector('.ci-tot').textContent = money(l.qty * l.price);
+    renderTotals();
+  });
+  renderTotals();
+}
+
+function renderTotals(){
+  const t = $('posTotals'); if(!t) return;
+  const editing = editId ? state.orders.find(o => o.id === editId) : null;
+  const sub = +(cart.reduce((a,b) => a + b.qty * b.price, 0)).toFixed(3);
+  const disc = parseFloat($('posDisc')?.value ?? (editing?.discount || 0)) || 0;
+  const vatEnabled = !!state.settings.vatEnabled;
+  const vatRate = Number(state.settings.vatRate) || 0;
+  const taxable = Math.max(0, sub - disc);
+  const vat = vatEnabled ? +(taxable * vatRate / 100).toFixed(3) : 0;
+  const total = +(taxable + vat).toFixed(3);
+  const paidVal = $('posPaid')?.value;
+  const paid = paidVal !== undefined && paidVal !== '' ? Math.max(0, parseFloat(paidVal) || 0) : (editing?.paid || 0);
+  const bal = +(Math.max(0, total - paid)).toFixed(3);
+  const method = $('posMethod')?.value || (editing?.paymentMethod || 'Cash');
+
+  t.innerHTML = `
+    <div class="r"><span>Subtotal</span><span class="v">${money(sub)}</span></div>
+    <div class="r"><span>Discount</span><input id="posDisc" type="number" min="0" step="0.001" value="${disc}"></div>
+    ${vatEnabled ? `<div class="r"><span>VAT (${vatRate}%)</span><span class="v">${money(vat)}</span></div>` : ''}
+    <div class="r grand"><span>Total</span><span class="v">${money(total)}</span></div>
+    <div class="pay-row">
+      <div class="field"><label>Amount Paid</label><input id="posPaid" type="number" min="0" step="0.001" value="${paid}"></div>
+      <div class="field"><label>Method</label>
+        <select id="posMethod">
+          ${['Cash','BenefitPay','Other'].map(m => `<option ${m===method?'selected':''}>${m}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="r bal" style="color:${bal>0?'#dc2626':'#059669'}">
+      <span>Balance</span><span class="v big">${money(bal)}</span>
+    </div>
+  `;
+  ['posDisc','posPaid','posMethod'].forEach(id => { const e = $(id); if(e){ e.oninput = renderTotals; e.onchange = renderTotals; } });
+}
+
+function saveBill(print, wa){
+  if(!cart.length){ toast('Add items first', 'err'); return; }
+  if(!curCust){ toast('Select a customer', 'err'); return; }
+
+  const sub = +(cart.reduce((a,b) => a + b.qty * b.price, 0)).toFixed(3);
+  const disc = parseFloat($('posDisc')?.value) || 0;
+  const vatRate = state.settings.vatEnabled ? (Number(state.settings.vatRate) || 0) : 0;
+  const taxable = Math.max(0, sub - disc);
+  const vat = vatRate ? +(taxable * vatRate / 100).toFixed(3) : 0;
+  const total = +(taxable + vat).toFixed(3);
+  const paid = Math.max(0, parseFloat($('posPaid')?.value) || 0);
+  const bal = +(Math.max(0, total - paid)).toFixed(3);
+  const method = $('posMethod')?.value || 'Cash';
+
+  const lines = cart.map(l => ({
+    id: uid(), itemId: l.itemId, name: l.name, service: l.service, qty: l.qty, price: l.price
+  }));
+
+  let order;
+  if(editId){
+    order = state.orders.find(o => o.id === editId);
+    Object.assign(order, {
+      customerId: curCust.id, customerName: curCust.name, customerPhone: curCust.phone || '',
+      items: lines, discount: disc, vatRate, vatAmount: vat,
+      subtotal: sub, total, paid, balance: bal, paymentMethod: method
+    });
+    toast('Invoice updated', 'ok');
+  } else {
+    order = {
+      id: uid(),
+      invNo: state.settings.invoicePrefix + String(state.settings.nextInvoiceNo).padStart(4,'0'),
+      customerId: curCust.id, customerName: curCust.name, customerPhone: curCust.phone || '',
+      items: lines, discount: disc, vatRate, vatAmount: vat,
+      subtotal: sub, total, paid, balance: bal, paymentMethod: method,
+      status: 'Received',
+      date: todayISO(),
+      deliveryDate: addDays(todayISO(), state.settings.deliveryDays || 2),
+      createdAt: Date.now()
+    };
+    state.orders.push(order);
+    state.settings.nextInvoiceNo++;
+    toast('Invoice ' + order.invNo + ' saved', 'ok');
+  }
+
+  save();
+  const oid = order.id;
+  cart = []; curCust = null; editId = null;
+
+  if(print){ viewInvoice(oid, true); }
+  else if(wa){ waOrder(oid); go('orders'); }
+  else { go('orders'); }
+}
+
+function newCustModal(){
+  openModal(`
+    <div class="modal-h"><h3>New Customer</h3><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-b">
+      <div class="field"><label>Name *</label><input id="ncName" placeholder="Ahmed Al Khalifa"></div>
+      <div class="field"><label>Phone (WhatsApp)</label><input id="ncPhone" placeholder="+973 3300 0000"></div>
+      <div class="field"><label>Address</label><input id="ncAddr"></div>
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="saveNewCust()">Save</button>
+    </div>
+  `);
+  setTimeout(() => $('ncName').focus(), 60);
+}
+
+function saveNewCust(){
+  const name = $('ncName').value.trim();
+  if(!name){ toast('Name required', 'err'); return; }
+  const c = {id: uid(), name, phone: $('ncPhone').value.trim(), address: $('ncAddr').value.trim()};
+  state.customers.push(c);
+  save();
+  curCust = c;
+  closeModal();
+  if(curView === 'pos'){ renderCustSelect(); } else { renderCustomers(); }
+  toast('Customer added', 'ok');
+}
+
+/* =====================================================================
+   ORDERS
+   ===================================================================== */
+let ordSearch = '';
+let ordFilter = 'all';
+
+function renderOrders(){
+  let list = [...state.orders].sort((a,b) => (b.date||'').localeCompare(a.date||'') || b.createdAt - a.createdAt);
+  if(ordFilter === 'paid') list = list.filter(o => payStatus(o) === 'paid');
+  if(ordFilter === 'unpaid') list = list.filter(o => payStatus(o) === 'unpaid');
+  if(ordFilter === 'partial') list = list.filter(o => payStatus(o) === 'partial');
+  if(ordSearch){
+    const q = ordSearch.toLowerCase();
+    list = list.filter(o =>
+      o.invNo.toLowerCase().includes(q) ||
+      (o.customerName||'').toLowerCase().includes(q) ||
+      (o.customerPhone||'').includes(q)
+    );
+  }
+
+  $('v-orders').innerHTML = `
+    <div class="card">
+      <div class="card-h">
+        <h2>All Invoices (${list.length})</h2>
+        <input id="ordSearch" placeholder="Search invoice / name / phone…" value="${esc(ordSearch)}"
+          style="padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;outline:none;min-width:200px">
+        <select id="ordFilter" style="padding:8px 12px;border:1.5px solid var(--border);border-radius:9px;outline:none">
+          <option value="all">All</option>
+          <option value="paid" ${ordFilter==='paid'?'selected':''}>Paid</option>
+          <option value="partial" ${ordFilter==='partial'?'selected':''}>Partial</option>
+          <option value="unpaid" ${ordFilter==='unpaid'?'selected':''}>Unpaid</option>
+        </select>
+      </div>
+      <div class="tw">
+        ${list.length ? `
+        <table><thead><tr>
+          <th>Invoice</th><th>Customer</th><th>Date</th><th>Total</th><th>Paid</th><th>Balance</th><th>Status</th><th>Order</th><th></th>
+        </tr></thead><tbody>
+        ${list.map(o => `
+          <tr>
+            <td><strong>${esc(o.invNo)}</strong></td>
+            <td>
+              <div style="font-weight:700">${esc(o.customerName)}</div>
+              <div style="font-size:11px;color:var(--muted)">${esc(o.customerPhone||'')}</div>
+            </td>
+            <td>${fmtDate(o.date)}</td>
+            <td><strong>${money(ordTotal(o))}</strong></td>
+            <td style="color:var(--green2);font-weight:600">${money(o.paid)}</td>
+            <td style="font-weight:700;color:${ordBal(o)>0?'var(--red)':'var(--muted)'}">${money(ordBal(o))}</td>
+            <td>${payBadge(o)}</td>
+            <td>
+              <select class="status-sel" onchange="setStatus('${o.id}',this.value)"
+                style="padding:5px 8px;border:1.5px solid var(--border);border-radius:7px;font-size:11.5px;font-weight:700;outline:none">
+                ${['Received','Washing','Ironing','Ready for Pickup','Delivered','Cancelled'].map(s => `<option ${o.status===s?'selected':''}>${s}</option>`).join('')}
+              </select>
+            </td>
+            <td><div class="actions">
+              <button class="ico-btn wa" title="WhatsApp" onclick="waOrder('${o.id}')">💬</button>
+              <button class="ico-btn p" title="View" onclick="viewInvoice('${o.id}')">👁</button>
+              <button class="ico-btn" title="Edit" onclick="editOrder('${o.id}')">✏️</button>
+              <button class="ico-btn" title="Toggle paid" onclick="togglePaid('${o.id}')">${ordBal(o)>0?'✅':'↩️'}</button>
+              <button class="ico-btn d" title="Delete" onclick="delOrder('${o.id}')">🗑</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody></table>` : `<div class="empty"><span class="big">🧾</span>No invoices found</div>`}
+      </div>
+    </div>
+  `;
+
+  $('ordSearch').addEventListener('input', e => { ordSearch = e.target.value; renderOrders(); });
+  $('ordFilter').addEventListener('change', e => { ordFilter = e.target.value; renderOrders(); });
+}
+
+function setStatus(id, s){
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  o.status = s;
+  save();
+  toast('Status: ' + s, 'ok');
+}
+
+function togglePaid(id){
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  if(ordBal(o) <= 0){ o.paid = 0; o.balance = ordTotal(o); toast('Marked unpaid', 'info'); }
+  else { o.paid = ordTotal(o); o.balance = 0; toast('Marked paid', 'ok'); }
+  save();
+  renderOrders();
+  renderDash();
+}
+
+function editOrder(id){
+  editId = id;
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  curCust = custById(o.customerId);
+  cart = o.items.map(i => ({uid: i.id || uid(), itemId: i.itemId, name: i.name, service: i.service, qty: i.qty, price: i.price}));
+  go('pos');
+}
+
+function delOrder(id){
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  if(!confirm(`Delete invoice ${o.invNo}? This cannot be undone.`)) return;
+  state.orders = state.orders.filter(x => x.id !== id);
+  save();
+  renderOrders();
+  renderDash();
+  toast('Invoice deleted', 'ok');
+}
+
+/* =====================================================================
+   INVOICE VIEW + PRINT
+   ===================================================================== */
+function invoiceHTML(o){
+  const c = custById(o.customerId);
+  const s = state.settings;
+  const st = payStatus(o);
+  const stCls = st === 'paid' ? 'paid' : st === 'partial' ? 'partial' : 'unpaid';
+  const stLbl = st === 'paid' ? 'PAID' : st === 'partial' ? 'PARTIALLY PAID' : st === 'cancelled' ? 'CANCELLED' : 'UNPAID';
+
+  return `
+    <div class="inv">
+      <div class="inv-top">
+        <div class="inv-shop">
+          <div>${s.logo ? `<img src="${esc(s.logo)}" style="height:52px;border-radius:8px">` : logo(120)}</div>
+          <div>
+            <div class="nm">${esc(s.shopName)}</div>
+            <div class="mt">${esc(s.address||'')}<br>${esc(s.phone||'')}</div>
+          </div>
+        </div>
+        <div class="inv-ttl">
+          <h2>INVOICE</h2>
+          <div class="no">${esc(o.invNo)}</div>
+          <div class="dt">
+            <div><strong>Date:</strong> ${fmtDate(o.date)}</div>
+            <div><strong>Delivery:</strong> ${fmtDate(o.deliveryDate)}</div>
+          </div>
+          <div style="margin-top:8px"><span class="bdg ${stCls}">${stLbl}</span></div>
+        </div>
+      </div>
+
+      <div class="inv-meta">
+        <div class="inv-blk">
+          <h4>Billed To</h4>
+          <p><strong>${esc(o.customerName)}</strong></p>
+          ${o.customerPhone ? `<p class="mu">${esc(o.customerPhone)}</p>` : ''}
+          ${c && c.address ? `<p class="mu">${esc(c.address)}</p>` : ''}
+        </div>
+        <div class="inv-blk" style="text-align:right">
+          <h4>Payment</h4>
+          <p>${esc(o.paymentMethod || '—')}</p>
+          <h4 style="margin-top:8px">Order Status</h4>
+          <p>${esc(o.status)}</p>
+        </div>
+      </div>
+
+      <table class="inv-tbl">
+        <thead><tr>
+          <th>#</th><th>Item</th><th>Service</th>
+          <th class="n">Qty</th><th class="n">Price</th><th class="n">Amount</th>
+        </tr></thead>
+        <tbody>
+          ${o.items.map((it, i) => `
+            <tr>
+              <td>${i+1}</td>
+              <td><strong>${esc(it.name)}</strong></td>
+              <td>${esc(it.service)}</td>
+              <td class="n">${it.qty}</td>
+              <td class="n">${money(it.price)}</td>
+              <td class="n"><strong>${money(it.qty * it.price)}</strong></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+
+      <div class="inv-sum">
+        <div class="inv-sum-box">
+          <div class="r"><span>Subtotal</span><span class="v">${money(ordSub(o))}</span></div>
+          ${o.discount > 0 ? `<div class="r"><span>Discount</span><span class="v">-${money(o.discount)}</span></div>` : ''}
+          ${o.vatAmount > 0 ? `<div class="r"><span>VAT (${o.vatRate}%)</span><span class="v">${money(o.vatAmount)}</span></div>` : ''}
+          <div class="r ttl"><span>Total</span><span class="v">${money(ordTotal(o))}</span></div>
+          <div class="r"><span>Paid</span><span class="v" style="color:#059669">${money(o.paid)}</span></div>
+          <div class="r bal ${ordBal(o) <= 0 ? 'pd' : ''}">
+            <span>Balance</span><span class="v">${money(ordBal(o))}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-ft">
+        Thank you for choosing ${esc(s.shopName)}! 🙏
+        <br>${esc(s.address||'')} ${s.phone ? '• ' + esc(s.phone) : ''}
+      </div>
+    </div>
+  `;
+}
+
+function viewInvoice(id, autoPrint){
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  const html = invoiceHTML(o);
+  $('printArea').innerHTML = html;
+
+  openModal(`
+    <div class="modal-h"><h3>Invoice ${esc(o.invNo)}</h3><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-b" style="padding:0;background:#f1f5f9">${html}</div>
+    <div class="modal-f">
+      <button class="btn btn-gh" onclick="closeModal()">Close</button>
+      <button class="btn btn-gh" onclick="window.print()">🖨 Print / PDF</button>
+      <button class="btn btn-g" onclick="closeModal();waOrder('${o.id}')">💬 WhatsApp</button>
+    </div>
+  `, true);
+
+  if(autoPrint) setTimeout(() => window.print(), 350);
+}
+
+/* =====================================================================
+   WHATSAPP
+   ===================================================================== */
+function waNum(phone){
+  let p = String(phone || '').replace(/\D/g, '');
+  const cc = (state.settings.countryCode || '973');
+  if(p.startsWith('00')) p = p.slice(2);
+  if(!p.startsWith(cc)) p = cc + p.replace(/^0+/, '');
+  return p;
+}
+
+function waMessage(o){
+  const s = state.settings;
+  const items = o.items.map(it =>
+    `${it.name} (${it.service}) × ${it.qty} — ${money(it.qty * it.price)}`
+  ).join('\n');
+
+  let m = `*${s.shopName}*\n`;
+  if(s.address) m += `${s.address}\n`;
+  if(s.phone) m += `📞 ${s.phone}\n`;
+  m += `──────────────\n`;
+  m += `*Invoice:* ${o.invNo}\n`;
+  m += `*Date:* ${fmtDate(o.date)}\n`;
+  m += `*Delivery:* ${fmtDate(o.deliveryDate)}\n`;
+  m += `*Customer:* ${o.customerName}\n`;
+  m += `──────────────\n`;
+  m += `*Items:*\n${items}\n`;
+  m += `──────────────\n`;
+  m += `Subtotal: ${money(ordSub(o))}\n`;
+  if(o.discount > 0) m += `Discount: -${money(o.discount)}\n`;
+  if(o.vatAmount > 0) m += `VAT: ${money(o.vatAmount)}\n`;
+  m += `*Total: ${money(ordTotal(o))}*\n`;
+  m += `Paid: ${money(o.paid)}\n`;
+  m += `*Balance Due: ${money(ordBal(o))}*\n`;
+  m += `──────────────\n`;
+  m += `Thank you for choosing ${s.shopName}! 🙏`;
+  return m;
+}
+
+function waOrder(id){
+  const o = state.orders.find(x => x.id === id);
+  if(!o) return;
+  const phone = o.customerPhone || (custById(o.customerId) || {}).phone || '';
+  if(!phone){ toast('No phone number saved', 'err'); return; }
+  const url = `https://wa.me/${waNum(phone)}?text=${encodeURIComponent(waMessage(o))}`;
+  window.open(url, '_blank');
+  toast('Opening WhatsApp…', 'info');
+}
+
+/* =====================================================================
+   ITEMS
+   ===================================================================== */
+function renderItems(){
+  const items = [...state.items].sort((a,b) => a.name.localeCompare(b.name));
+  $('v-items').innerHTML = `
+    <div class="card">
+      <div class="card-h">
+        <h2>Items & Prices (${items.length})</h2>
+        <button class="btn btn-p btn-sm" onclick="itemModal('')">＋ Add Item</button>
+      </div>
+      <div class="tw">
+        ${items.length ? `<table><thead><tr>
+          <th>Item</th><th>Arabic</th><th>Wash</th><th>Iron</th><th>Dry Clean</th><th></th>
+        </tr></thead><tbody>
+        ${items.map(i => `
+          <tr>
+            <td><strong>${esc(i.name)}</strong></td>
+            <td style="direction:rtl;text-align:right">${esc(i.ar || '—')}</td>
+            <td>${i.wash > 0 ? money(i.wash) : '<span style="color:#cbd5e1">—</span>'}</td>
+            <td>${i.iron > 0 ? money(i.iron) : '<span style="color:#cbd5e1">—</span>'}</td>
+            <td>${i.dry > 0 ? money(i.dry) : '<span style="color:#cbd5e1">—</span>'}</td>
+            <td><div class="actions">
+              <button class="ico-btn" onclick="itemModal('${i.id}')">✏️</button>
+              <button class="ico-btn d" onclick="delItem('${i.id}')">🗑</button>
+            </div></td>
+          </tr>`).join('')}
+        </tbody></table>` : `<div class="empty"><span class="big">👕</span>No items yet</div>`}
+      </div>
+    </div>
+  `;
+}
+
+function itemModal(id){
+  const it = id ? itemById(id) : {name:'', ar:'', wash:'', iron:'', dry:''};
+  openModal(`
+    <div class="modal-h"><h3>${id ? 'Edit Item' : 'New Item'}</h3><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-b">
+      <div class="grid2">
+        <div class="field"><label>Name (English) *</label><input id="ieN" value="${esc(it.name)}"></div>
+        <div class="field"><label>Name (Arabic)</label><input id="ieA" value="${esc(it.ar||'')}" style="direction:rtl"></div>
+      </div>
+      <div class="grid3">
+        <div class="field"><label>Wash Price</label><input id="ieW" type="number" min="0" step="0.001" value="${it.wash||''}"></div>
+        <div class="field"><label>Iron Price</label><input id="ieI" type="number" min="0" step="0.001" value="${it.iron||''}"></div>
+        <div class="field"><label>Dry Clean Price</label><input id="ieD" type="number" min="0" step="0.001" value="${it.dry||''}"></div>
+      </div>
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="saveItem('${id||''}')">Save</button>
+    </div>
+  `);
+  setTimeout(() => $('ieN').focus(), 60);
+}
+
+function saveItem(id){
+  const name = $('ieN').value.trim();
+  if(!name){ toast('Name required', 'err'); return; }
+  const data = {
+    name,
+    ar: $('ieA').value.trim(),
+    wash: Math.max(0, parseFloat($('ieW').value) || 0),
+    iron: Math.max(0, parseFloat($('ieI').value) || 0),
+    dry: Math.max(0, parseFloat($('ieD').value) || 0)
+  };
+  if(id){ Object.assign(itemById(id), data); }
+  else { state.items.push({id: uid(), ...data}); }
+  save(); closeModal(); renderItems();
+  toast('Item saved', 'ok');
+}
+
+function delItem(id){
+  const it = itemById(id);
+  if(!it) return;
+  if(!confirm(`Delete "${it.name}"?`)) return;
+  state.items = state.items.filter(x => x.id !== id);
+  save(); renderItems();
+  toast('Item deleted', 'ok');
+}
+
+/* =====================================================================
+   CUSTOMERS
+   ===================================================================== */
+function renderCustomers(){
+  const list = [...state.customers].sort((a,b) => a.name.localeCompare(b.name));
+  $('v-customers').innerHTML = `
+    <div class="card">
+      <div class="card-h">
+        <h2>Customers (${list.length})</h2>
+        <button class="btn btn-p btn-sm" onclick="newCustModal()">＋ Add Customer</button>
+      </div>
+      <div class="tw">
+        ${list.length ? `<table><thead><tr>
+          <th>Name</th><th>Phone</th><th>Orders</th><th>Total Due</th><th></th>
+        </tr></thead><tbody>
+        ${list.map(c => {
+          const os = state.orders.filter(o => o.customerId === c.id);
+          const due = os.reduce((a,o) => a + ordBal(o), 0);
+          return `<tr>
+            <td><strong>${esc(c.name)}</strong>${c.address ? `<div style="font-size:11px;color:var(--muted)">${esc(c.address)}</div>` : ''}</td>
+            <td>${esc(c.phone || '—')}</td>
+            <td>${os.length}</td>
+            <td style="font-weight:700;color:${due>0?'var(--red)':'var(--muted)'}">${money(due)}</td>
+            <td><div class="actions">
+              <button class="ico-btn wa" onclick="waCust('${c.id}')">💬</button>
+              <button class="ico-btn" onclick="editCust('${c.id}')">✏️</button>
+              <button class="ico-btn d" onclick="delCust('${c.id}')">🗑</button>
+            </div></td>
+          </tr>`;
+        }).join('')}
+        </tbody></table>` : `<div class="empty"><span class="big">👥</span>No customers yet</div>`}
+      </div>
+    </div>
+  `;
+}
+
+function editCust(id){
+  const c = custById(id);
+  if(!c) return;
+  openModal(`
+    <div class="modal-h"><h3>Edit Customer</h3><button class="modal-x" onclick="closeModal()">✕</button></div>
+    <div class="modal-b">
+      <div class="field"><label>Name *</label><input id="ecN" value="${esc(c.name)}"></div>
+      <div class="field"><label>Phone</label><input id="ecP" value="${esc(c.phone||'')}"></div>
+      <div class="field"><label>Address</label><input id="ecA" value="${esc(c.address||'')}"></div>
+    </div>
+    <div class="modal-f">
+      <button class="btn btn-gh" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-p" onclick="saveCust('${id}')">Save</button>
+    </div>
+  `);
+}
+
+function saveCust(id){
+  const name = $('ecN').value.trim();
+  if(!name){ toast('Name required', 'err'); return; }
+  Object.assign(custById(id), {name, phone: $('ecP').value.trim(), address: $('ecA').value.trim()});
+  save(); closeModal(); renderCustomers();
+  toast('Customer saved', 'ok');
+}
+
+function delCust(id){
+  const c = custById(id);
+  if(!c) return;
+  const cnt = state.orders.filter(o => o.customerId === id).length;
+  const msg = cnt ? `"${c.name}" has ${cnt} invoice(s). Deleting the customer will keep the invoices. Continue?` : `Delete "${c.name}"?`;
+  if(!confirm(msg)) return;
+  state.customers = state.customers.filter(x => x.id !== id);
+  save(); renderCustomers();
+  toast('Customer deleted', 'ok');
+}
+
+function waCust(id){
+  const c = custById(id);
+  if(!c || !c.phone){ toast('No phone number', 'err'); return; }
+  window.open(`https://wa.me/${waNum(c.phone)}?text=${encodeURIComponent('Hello ' + c.name + ', this is ' + state.settings.shopName)}`, '_blank');
+}
+
+/* =====================================================================
+   REPORTS
+   ===================================================================== */
+function renderReports(){
+  const now = new Date();
+  const tdy = todayISO();
+  const weekStart = new Date(now); weekStart.setDate(now.getDate() - now.getDay());
+  const ws = weekStart.toISOString().slice(0,10);
+  const ms = tdy.slice(0,7) + '-01';
+
+  const active = state.orders.filter(o => o.status !== 'Cancelled');
+  const todayS = active.filter(o => o.date === tdy).reduce((a,o) => a + ordTotal(o), 0);
+  const weekS = active.filter(o => o.date >= ws).reduce((a,o) => a + ordTotal(o), 0);
+  const monthS = active.filter(o => o.date >= ms).reduce((a,o) => a + ordTotal(o), 0);
+  const totalDue = state.orders.reduce((a,o) => a + ordBal(o), 0);
+  const monthCollected = active.filter(o => o.date >= ms).reduce((a,o) => a + (o.paid||0), 0);
+
+  const payMap = {Cash:0, BenefitPay:0, Other:0};
+  active.forEach(o => { payMap[o.paymentMethod] = (payMap[o.paymentMethod]||0) + (o.paid||0); });
+
+  const itemsMap = {};
+  active.forEach(o => o.items.forEach(it => { itemsMap[it.name] = (itemsMap[it.name]||0) + it.qty; }));
+  const topItems = Object.entries(itemsMap).sort((a,b) => b[1]-a[1]).slice(0,6);
+  const maxQty = topItems.length ? topItems[0][1] : 1;
+
+  $('v-reports').innerHTML = `
+    <div class="stats">
+      <div class="stat"><div class="stat-ic">📅</div>
+        <div><div class="stat-lb">Today</div><div class="stat-vl">${money(todayS)}</div></div></div>
+      <div class="stat g"><div class="stat-ic">📆</div>
+        <div><div class="stat-lb">This Week</div><div class="stat-vl">${money(weekS)}</div></div></div>
+      <div class="stat c"><div class="stat-ic">🗓</div>
+        <div><div class="stat-lb">This Month</div><div class="stat-vl">${money(monthS)}</div></div></div>
+      <div class="stat o"><div class="stat-ic">⏳</div>
+        <div><div class="stat-lb">Total Due</div><div class="stat-vl">${money(totalDue)}</div></div></div>
+    </div>
+
+    <div class="grid2" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div class="card">
+        <div class="card-h"><h2>💳 Payment Breakdown</h2></div>
+        <div class="card-b">
+          ${Object.entries(payMap).map(([m,v]) => {
+            const pct = monthCollected > 0 ? Math.round(v / monthCollected * 100) : 0;
+            return `<div style="margin-bottom:12px">
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:13px">
+                <strong>${m}</strong><span>${money(v)}</span>
+              </div>
+              <div style="height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden">
+                <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--purple),var(--green));border-radius:4px"></div>
+              </div>
+            </div>`;
+          }).join('')}
+          <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);display:flex;justify-content:space-between;font-size:13px">
+            <span><strong>Collected this month</strong></span><strong style="color:var(--green2)">${money(monthCollected)}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-h"><h2>🏆 Top Items</h2></div>
+        <div class="card-b">
+          ${topItems.length ? topItems.map((x,i) => `
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="width:22px;height:22px;border-radius:6px;background:var(--purple-light);color:var(--purple);display:grid;place-items:center;font-size:11px;font-weight:800;flex:0 0 auto">${i+1}</div>
+              <div style="flex:1;font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x[0])}</div>
+              <div style="flex:0 0 80px;height:7px;background:#f1f5f9;border-radius:4px;overflow:hidden">
+                <div style="height:100%;width:${Math.round(x[1]/maxQty*100)}%;background:linear-gradient(90deg,var(--purple),var(--green));border-radius:4px"></div>
+              </div>
+              <div style="font-size:12px;font-weight:800;color:#475569;min-width:50px;text-align:right">${x[1]} pcs</div>
+            </div>`).join('') : `<div class="empty" style="padding:20px">No data</div>`}
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>📋 All Orders (${state.orders.length})</h2></div>
+      <div class="tw">
+        <table><thead><tr>
+          <th>Invoice</th><th>Date</th><th>Customer</th><th>Total</th><th>Paid</th><th>Balance</th><th>Method</th>
+        </tr></thead><tbody>
+        ${[...state.orders].sort((a,b) => b.date.localeCompare(a.date)).map(o => `
+          <tr>
+            <td><strong>${esc(o.invNo)}</strong></td>
+            <td>${fmtDate(o.date)}</td>
+            <td>${esc(o.customerName)}</td>
+            <td>${money(ordTotal(o))}</td>
+            <td style="color:var(--green2)">${money(o.paid)}</td>
+            <td style="color:${ordBal(o)>0?'var(--red)':'var(--muted)'};font-weight:700">${money(ordBal(o))}</td>
+            <td>${esc(o.paymentMethod||'—')}</td>
+          </tr>`).join('')}
+        </tbody></table>
+      </div>
+    </div>
+  `;
+}
+
+/* =====================================================================
+   SETTINGS
+   ===================================================================== */
+function renderSettings(){
+  const s = state.settings;
+  $('v-settings').innerHTML = `
+    <div class="card">
+      <div class="card-h"><h2>🏪 Shop Information</h2></div>
+      <div class="card-b">
+        <div class="grid2">
+          <div class="field"><label>Shop Name</label><input id="setName" value="${esc(s.shopName)}"></div>
+          <div class="field"><label>Phone (WhatsApp)</label><input id="setPhone" value="${esc(s.phone)}"></div>
+        </div>
+        <div class="field"><label>Address</label><input id="setAddr" value="${esc(s.address)}"></div>
+        <div class="grid3">
+          <div class="field"><label>Country Code</label><input id="setCC" value="${esc(s.countryCode)}" maxlength="5"></div>
+          <div class="field"><label>Currency</label><input id="setCur" value="${esc(s.currency)}" maxlength="5"></div>
+          <div class="field"><label>Delivery Days</label><input id="setDel" type="number" min="0" value="${s.deliveryDays}"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>🎨 Logo</h2></div>
+      <div class="card-b">
+        <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+          <div style="border:1.5px solid var(--border);border-radius:12px;padding:10px;background:#f8fafc">
+            ${s.logo ? `<img src="${esc(s.logo)}" style="height:60px;border-radius:8px">` : logo(120)}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <input type="file" id="logoFile" accept="image/*" style="display:none" onchange="uploadLogo(this)">
+            <button class="btn btn-gh btn-sm" onclick="document.getElementById('logoFile').click()">⬆️ Upload Original Logo</button>
+            ${s.logo ? `<button class="btn btn-d btn-sm" onclick="removeLogo()">Remove Logo</button>` : ''}
+            <span style="font-size:11px;color:var(--muted)">PNG / JPG, max 1MB</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>🧾 Invoice Settings</h2></div>
+      <div class="card-b">
+        <div class="grid2">
+          <div class="field"><label>Invoice Prefix</label><input id="setPrefix" value="${esc(s.invoicePrefix)}"></div>
+          <div class="field"><label>Next Invoice Number</label><input id="setNext" type="number" min="1" value="${s.nextInvoiceNo}"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>🧮 VAT / Tax</h2></div>
+      <div class="card-b">
+        <div class="grid2">
+          <div class="field"><label>VAT Enabled</label>
+            <select id="setVatOn">
+              <option value="false" ${!s.vatEnabled?'selected':''}>No</option>
+              <option value="true" ${s.vatEnabled?'selected':''}>Yes</option>
+            </select>
+          </div>
+          <div class="field"><label>VAT Rate (%)</label><input id="setVatRate" type="number" min="0" step="0.01" value="${s.vatRate}"></div>
+        </div>
+        <div class="hint" style="font-size:11px;color:var(--muted)">Verify applicable Bahrain VAT requirements before issuing real invoices.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>🔒 Security</h2></div>
+      <div class="card-b">
+        <div class="field"><label>Admin PIN (4+ digits)</label><input id="setPin" value="${esc(s.pin)}" maxlength="12"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-h"><h2>💾 Backup & Restore</h2></div>
+      <div class="card-b">
+        <p style="color:var(--muted);font-size:12.5px;margin-bottom:12px;line-height:1.6">
+          Your data is saved only in this browser. Export a backup regularly, or use it to move data to another device.
+        </p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-gh" onclick="exportData()">⬇️ Export Backup (.json)</button>
+          <button class="btn btn-gh" onclick="document.getElementById('importFile').click()">⬆️ Import Backup</button>
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+          <button class="btn btn-d" onclick="wipeData()">🗑 Erase All Data</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-bottom:20px">
+      <button class="btn btn-gh" onclick="doLogout()">⎋ Logout</button>
+      <button class="btn btn-p" onclick="saveSettings()">💾 Save Settings</button>
+    </div>
+  `;
+}
+
+function uploadLogo(input){
+  const f = input.files[0];
+  if(!f) return;
+  if(f.size > 1024 * 1024){ toast('Max 1MB', 'err'); return; }
+  const r = new FileReader();
+  r.onload = () => {
+    state.settings.logo = r.result;
+    save();
+    renderSettings();
+    toast('Logo updated', 'ok');
+  };
+  r.readAsDataURL(f);
+  input.value = '';
+}
+
+function removeLogo(){
+  state.settings.logo = '';
+  save();
+  renderSettings();
+  toast('Logo removed', 'info');
+}
+
+function saveSettings(){
+  const s = state.settings;
+  s.shopName = $('setName').value.trim() || 'Fresh and Clean Laundry';
+  s.phone = $('setPhone').value.trim();
+  s.address = $('setAddr').value.trim();
+  s.countryCode = $('setCC').value.replace(/\D/g,'') || '973';
+  s.currency = $('setCur').value.trim() || 'BHD';
+  s.deliveryDays = Math.max(0, parseInt($('setDel').value) || 2);
+  s.invoicePrefix = $('setPrefix').value.trim() || 'FCL-';
+  s.nextInvoiceNo = Math.max(1, parseInt($('setNext').value) || 1);
+  s.vatEnabled = $('setVatOn').value === 'true';
+  s.vatRate = Math.max(0, parseFloat($('setVatRate').value) || 0);
+  const pin = $('setPin').value.trim();
+  if(pin.length >= 4) s.pin = pin;
+  else { toast('PIN must be at least 4 digits', 'err'); return; }
+  save();
+  $('sideNm').textContent = s.shopName.length > 18 ? s.shopName.slice(0,17) + '…' : s.shopName;
+  toast('Settings saved', 'ok');
+}
+
+/* =====================================================================
+   BACKUP
+   ===================================================================== */
+function exportData(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `fresh-clean-backup-${todayISO()}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Backup downloaded', 'ok');
+}
+
+function importData(input){
+  const f = input.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = e => {
+    try {
+      const d = JSON.parse(e.target.result);
+      if(!d.settings || !Array.isArray(d.items)) throw new Error('bad');
+      if(!confirm('Importing will REPLACE all current data. Continue?')) return;
+      state = d;
+      if(!Array.isArray(state.customers)) state.customers = [];
+      if(!Array.isArray(state.orders)) state.orders = [];
+      state.settings = Object.assign({}, DEF_SETTINGS, state.settings);
+      save();
+      bootAfterLogin();
+      toast('Backup restored', 'ok');
+    } catch(err){
+      toast('Invalid backup file', 'err');
+    }
+  };
+  r.readAsText(f);
+  input.value = '';
+}
+
+function wipeData(){
+  if(!confirm('This permanently erases ALL data. Are you sure?')) return;
+  if(!confirm('Last chance — really erase everything?')) return;
+  localStorage.removeItem(KEY);
+  sessionStorage.removeItem(SES);
+  location.reload();
+}
+
+/* =====================================================================
+   BOOT
+   ===================================================================== */
+function bootAfterLogin(){
+  $('login').classList.add('hide');
+  $('app').classList.remove('hide');
+  $('sideNm').textContent = state.settings.shopName.length > 18
+    ? state.settings.shopName.slice(0,17) + '…'
+    : state.settings.shopName;
+  $('sideLogo').innerHTML = state.settings.logo
+    ? `<img src="${esc(state.settings.logo)}" style="height:36px;border-radius:8px">`
+    : logo(80);
+  buildNav();
+  go('dashboard');
+}
+
+function bootLogin(){
+  $('login').classList.remove('hide');
+  $('app').classList.add('hide');
+  $('loginLogo').innerHTML = state.settings.logo
+    ? `<img src="${esc(state.settings.logo)}" style="height:64px;border-radius:12px">`
+    : logo(150);
+
+  const pinIn = $('pinInput');
+  const btn = $('loginBtn');
+  const err = $('loginErr');
+
+  function attempt(){
+    if(pinIn.value === String(state.settings.pin)){
+      setAuth();
+      bootAfterLogin();
+    } else {
+      err.textContent = 'Incorrect PIN. Try again.';
+      pinIn.value = '';
+      pinIn.focus();
+      setTimeout(() => { err.textContent = ''; }, 2000);
+    }
+  }
+  btn.onclick = attempt;
+  pinIn.onkeydown = e => { if(e.key === 'Enter') attempt(); };
+  pinIn.focus();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  $('hamb').addEventListener('click', () => {
+    $('sidebar').classList.toggle('open');
+    $('overlay').classList.toggle('show');
+  });
+  $('overlay').addEventListener('click', () => {
+    $('sidebar').classList.remove('open');
+    $('overlay').classList.remove('show');
+  });
+  $('topNewBill').addEventListener('click', () => go('pos'));
+
+  if(isAuth()) bootAfterLogin();
+  else bootLogin();
+
+  window.go = go;
+  window.closeModal = closeModal;
+  window.itemModal = itemModal;
+  window.saveItem = saveItem;
+  window.delItem = delItem;
+  window.newCustModal = newCustModal;
+  window.saveNewCust = saveNewCust;
+  window.editCust = editCust;
+  window.saveCust = saveCust;
+  window.delCust = delCust;
+  window.waCust = waCust;
+  window.setStatus = setStatus;
+  window.togglePaid = togglePaid;
+  window.editOrder = editOrder;
+  window.delOrder = delOrder;
+  window.viewInvoice = viewInvoice;
+  window.waOrder = waOrder;
+  window.saveSettings = saveSettings;
+  window.uploadLogo = uploadLogo;
+  window.removeLogo = removeLogo;
+  window.exportData = exportData;
+  window.importData = importData;
+  window.wipeData = wipeData;
+  window.doLogout = doLogout;
+});
+</script>
+</body>
+</html>
